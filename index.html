@@ -5,6 +5,165 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MSLFieldInsights</title>
 
+  <!-- ── DEBUG PANEL: installs before any CDN so it catches all errors ── -->
+  <script>
+  (function() {
+    var DBG = window.__DBG = {
+      errors: [], logs: [], warns: [], scriptEvents: [], networkFails: [],
+      reactRenderAttempted: false, reactRenderSuccess: false,
+      startTime: Date.now(),
+    };
+
+    // Capture all uncaught JS errors
+    window.onerror = function(msg, src, line, col, err) {
+      DBG.errors.push({ type: 'onerror', msg: String(msg), src: src, line: line, col: col, stack: err ? err.stack : '' });
+      return false;
+    };
+    window.addEventListener('unhandledrejection', function(e) {
+      DBG.errors.push({ type: 'unhandledrejection', msg: String(e.reason), stack: e.reason && e.reason.stack ? e.reason.stack : '' });
+    });
+
+    // Intercept console.error and console.warn
+    var _ce = console.error, _cw = console.warn, _cl = console.log;
+    console.error = function() { DBG.errors.push({ type: 'console.error', msg: Array.from(arguments).join(' ') }); _ce.apply(console, arguments); };
+    console.warn  = function() { DBG.warns.push(Array.from(arguments).join(' ')); _cw.apply(console, arguments); };
+    console.log   = function() { DBG.logs.push(Array.from(arguments).join(' ')); _cl.apply(console, arguments); };
+
+    // Track resource load failures (scripts, links)
+    window.addEventListener('error', function(e) {
+      if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+        DBG.networkFails.push({ tag: e.target.tagName, src: e.target.src || e.target.href });
+      }
+    }, true);
+
+    // ── Panel UI (vanilla JS, zero dependencies) ──────────────────
+    function buildPanel() {
+      var elapsed = ((Date.now() - DBG.startTime) / 1000).toFixed(1);
+
+      function check(label, ok, detail) {
+        var icon = ok === true ? '✅' : ok === false ? '❌' : '⚠️';
+        return '<div style="display:flex;gap:6px;padding:3px 0;border-bottom:1px solid #2a2a3a;font-size:12px">' +
+          '<span style="flex-shrink:0">' + icon + '</span>' +
+          '<span style="color:#ccc;flex-shrink:0;min-width:160px">' + label + '</span>' +
+          '<span style="color:#888;word-break:break-all">' + (detail || '') + '</span></div>';
+      }
+
+      var libChecks = [
+        ['React',     typeof React !== 'undefined',     typeof React !== 'undefined' ? 'v' + React.version : 'NOT LOADED'],
+        ['ReactDOM',  typeof ReactDOM !== 'undefined',  typeof ReactDOM !== 'undefined' ? 'loaded' : 'NOT LOADED'],
+        ['antd',      typeof antd !== 'undefined',      typeof antd !== 'undefined' ? 'loaded' : 'NOT LOADED'],
+        ['dayjs',     typeof dayjs !== 'undefined',     typeof dayjs !== 'undefined' ? 'v' + (dayjs.version || '?') : 'NOT LOADED'],
+        ['Highcharts',typeof Highcharts !== 'undefined',typeof Highcharts !== 'undefined' ? 'v' + Highcharts.version : 'NOT LOADED'],
+      ];
+
+      var mockChecks = [
+        ['MOCK_HCPS',          typeof MOCK_HCPS !== 'undefined',          typeof MOCK_HCPS !== 'undefined' ? MOCK_HCPS.length + ' records' : 'undefined'],
+        ['MOCK_INTERACTIONS',  typeof MOCK_INTERACTIONS !== 'undefined',  typeof MOCK_INTERACTIONS !== 'undefined' ? MOCK_INTERACTIONS.length + ' records' : 'undefined'],
+        ['MOCK_INSIGHTS',      typeof MOCK_INSIGHTS !== 'undefined',      typeof MOCK_INSIGHTS !== 'undefined' ? MOCK_INSIGHTS.length + ' records' : 'undefined'],
+        ['MOCK_AUDIT_LOGS',    typeof MOCK_AUDIT_LOGS !== 'undefined',    typeof MOCK_AUDIT_LOGS !== 'undefined' ? MOCK_AUDIT_LOGS.length + ' records' : 'undefined'],
+        ['MOCK_AI_OUTPUTS',    typeof MOCK_AI_OUTPUTS !== 'undefined',    typeof MOCK_AI_OUTPUTS !== 'undefined' ? Object.keys(MOCK_AI_OUTPUTS).join(', ') : 'undefined'],
+      ];
+
+      var rootEl = document.getElementById('root');
+      var rootStatus = rootEl ? (rootEl.children.length > 0 ? 'has ' + rootEl.children.length + ' child(ren)' : 'EMPTY — React did not mount') : 'element missing';
+
+      var html = '<div style="font-family:monospace">';
+      html += '<div style="color:#A89BF0;font-weight:700;font-size:13px;margin-bottom:8px">🔍 MSLFieldInsights Debug Panel</div>';
+      html += '<div style="color:#888;font-size:11px;margin-bottom:10px">Elapsed: ' + elapsed + 's · URL: ' + window.location.href + '</div>';
+
+      html += '<div style="color:#A89BF0;font-size:11px;font-weight:600;margin:6px 0 3px;text-transform:uppercase;letter-spacing:.06em">CDN Libraries</div>';
+      libChecks.forEach(function(c) { html += check(c[0], c[1], c[2]); });
+
+      html += '<div style="color:#A89BF0;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">Mock Data Globals</div>';
+      mockChecks.forEach(function(c) { html += check(c[0], c[1], c[2]); });
+
+      html += '<div style="color:#A89BF0;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">React Root</div>';
+      html += check('#root contents', rootEl && rootEl.children.length > 0, rootStatus);
+      html += check('React render attempted', DBG.reactRenderAttempted, DBG.reactRenderAttempted ? 'yes' : 'not reached');
+      html += check('React render success', DBG.reactRenderSuccess, DBG.reactRenderSuccess ? 'yes' : 'not confirmed');
+
+      if (DBG.networkFails.length > 0) {
+        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">⚠️ Failed Resource Loads (' + DBG.networkFails.length + ')</div>';
+        DBG.networkFails.forEach(function(f) { html += check(f.tag, false, f.src); });
+      }
+
+      if (DBG.errors.length > 0) {
+        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">❌ Errors (' + DBG.errors.length + ')</div>';
+        DBG.errors.slice(-10).forEach(function(e) {
+          html += '<div style="background:#1a0a0a;border:1px solid #5a1a1a;border-radius:4px;padding:6px 8px;margin:3px 0;font-size:11px;color:#ff9a9a;word-break:break-all">';
+          html += '<strong>[' + e.type + ']</strong> ' + e.msg;
+          if (e.stack) html += '<br><span style="color:#666;font-size:10px">' + e.stack.split('\n').slice(0,3).join('<br>') + '</span>';
+          html += '</div>';
+        });
+      } else {
+        html += '<div style="color:#28A464;font-size:12px;margin-top:8px">✅ No JS errors captured</div>';
+      }
+
+      if (DBG.warns.length > 0) {
+        html += '<div style="color:#CCB718;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">Warnings (' + DBG.warns.length + ')</div>';
+        DBG.warns.slice(-5).forEach(function(w) {
+          html += '<div style="font-size:11px;color:#CCB718;padding:2px 0">' + w + '</div>';
+        });
+      }
+
+      html += '<div style="color:#A89BF0;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">Environment</div>';
+      html += check('window.location.pathname', null, window.location.pathname);
+      html += check('User Agent', null, navigator.userAgent.substring(0, 80));
+      html += check('document.readyState', null, document.readyState);
+
+      html += '<div style="margin-top:10px;display:flex;gap:8px">';
+      html += '<button onclick="window.__DBG_refresh()" style="background:#543FDE;color:#fff;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">↻ Refresh</button>';
+      html += '<button onclick="console.log(JSON.stringify(window.__DBG,null,2))" style="background:#2a2a3a;color:#ccc;border:1px solid #444;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">Log to Console</button>';
+      html += '<button onclick="document.getElementById(\'__dbg_panel\').style.display=\'none\'" style="background:#1a1a2a;color:#666;border:1px solid #333;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">Close</button>';
+      html += '</div>';
+      html += '</div>';
+      return html;
+    }
+
+    window.__DBG_refresh = function() {
+      var panel = document.getElementById('__dbg_content');
+      if (panel) panel.innerHTML = buildPanel();
+    };
+
+    // Inject panel + toggle button after DOM is ready
+    window.addEventListener('DOMContentLoaded', function() {
+      // Toggle button — always visible in corner
+      var btn = document.createElement('button');
+      btn.id = '__dbg_btn';
+      btn.textContent = '🐛 Debug';
+      btn.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:99999;background:#1a1a2e;color:#A89BF0;border:1px solid #543FDE;border-radius:6px;padding:6px 12px;font-size:12px;font-family:monospace;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.5)';
+      btn.onclick = function() {
+        var p = document.getElementById('__dbg_panel');
+        if (p.style.display === 'none') { window.__DBG_refresh(); p.style.display = 'flex'; }
+        else p.style.display = 'none';
+      };
+      document.body.appendChild(btn);
+
+      // Panel overlay
+      var panel = document.createElement('div');
+      panel.id = '__dbg_panel';
+      panel.style.cssText = 'display:none;position:fixed;bottom:52px;right:16px;z-index:99998;width:560px;max-height:70vh;background:#111120;border:1px solid #543FDE;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.7);flex-direction:column;overflow:hidden';
+
+      var content = document.createElement('div');
+      content.id = '__dbg_content';
+      content.style.cssText = 'padding:16px;overflow-y:auto;flex:1';
+      panel.appendChild(content);
+      document.body.appendChild(panel);
+
+      // Auto-open if #root is still empty after 3s
+      setTimeout(function() {
+        var root = document.getElementById('root');
+        if (root && root.children.length === 0) {
+          window.__DBG_refresh();
+          panel.style.display = 'flex';
+          console.warn('[DEBUG] Root is empty after 3s — auto-opened debug panel');
+        }
+      }, 3000);
+    });
+  })();
+  </script>
+  <!-- ── END DEBUG PANEL ────────────────────────────────────────── -->
+
   <!-- Inter Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -33,6 +192,19 @@
 
   <!-- Mock data must load before app -->
   <script src="static/mock_data.js"></script>
+  <script>
+    // Signal to debug panel that app.js is about to run
+    if (window.__DBG) window.__DBG.reactRenderAttempted = true;
+  </script>
   <script src="static/app.js"></script>
+  <script>
+    // After app.js, check if root got populated
+    setTimeout(function() {
+      var root = document.getElementById('root');
+      if (window.__DBG) {
+        window.__DBG.reactRenderSuccess = root && root.children.length > 0;
+      }
+    }, 500);
+  </script>
 </body>
 </html>
