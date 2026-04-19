@@ -1305,9 +1305,48 @@ var NAV_ITEMS = [
   { key: 'commercial', label: 'Commercial view' },
 ];
 
+function AboutModal(props) {
+  return h(Modal, {
+    open: props.open,
+    onCancel: props.onClose,
+    title: 'About MSL field insights',
+    footer: h(Button, { onClick: props.onClose }, 'Close'),
+    width: 640,
+  },
+    h('div', { className: 'about-body' },
+      h('p', null,
+        h('strong', null, 'Medical Science Liaisons (MSLs) '),
+        'are PhD- or PharmD-credentialed field-medical scientists who meet with healthcare providers (HCPs) to share clinical and scientific evidence about a pharma company\'s therapies. MSLs sit inside Medical Affairs, separate from Commercial, and are firewalled under the PhRMA Code.'
+      ),
+      h('h4', null, 'What this app does'),
+      h('p', null,
+        'MSL field insights turns post-call notes into governed, themed intelligence. Notes flow through an AI theming step (with pinned model, prompt, taxonomy, and retrieval snapshot) into routing decisions for Medical Strategy, Clinical Development, Pharmacovigilance, Market Access, or Medical Information. Every insight has a full lineage chain and can be bit-identically reproduced for audit.'
+      ),
+      h('h4', null, 'The five views'),
+      h('ul', { className: 'about-list' },
+        h('li', null, h('strong', null, 'Post-call capture '), '— MSLs submit a note, get a themed summary, follow-up draft, and routing recommendation in under 60 seconds.'),
+        h('li', null, h('strong', null, 'MSL lead dashboard '), '— team insight flow, theme emergence, routing status, decision-loop metrics.'),
+        h('li', null, h('strong', null, 'Pre-call brief '), '— full cross-TA HCP history, recent signals, publications, trial involvement.'),
+        h('li', null, h('strong', null, 'Governance console '), '— insight re-runs, lineage browser, audit log, taxonomy management.'),
+        h('li', null, h('strong', null, 'Commercial view '), '— aggregated thematic trends only (N>=5), PhRMA-Code firewalled, no HCP identifiers.')
+      ),
+      h('h4', null, 'Glossary'),
+      h('ul', { className: 'about-list' },
+        h('li', null, h('strong', null, 'MSL '), '— Medical Science Liaison'),
+        h('li', null, h('strong', null, 'HCP '), '— Healthcare Provider'),
+        h('li', null, h('strong', null, 'TA '), '— Therapeutic Area (e.g. Oncology, Hematology, Rare Disease)'),
+        h('li', null, h('strong', null, 'AE '), '— Adverse Event (reportable to Pharmacovigilance under 21 CFR 314.80)'),
+        h('li', null, h('strong', null, 'PV '), '— Pharmacovigilance'),
+        h('li', null, h('strong', null, 'PhRMA Code '), '— industry self-regulatory standard separating Medical from Commercial functions')
+      )
+    )
+  );
+}
+
 function App() {
   var _page = useState('dashboard'); var page = _page[0]; var setPage = _page[1];
   var _dummy = useState(true); var useDummy = _dummy[0]; var setUseDummy = _dummy[1];
+  var _about = useState(false); var aboutOpen = _about[0]; var setAboutOpen = _about[1];
 
   function renderPage() {
     if (page === 'capture')    return h(PostCallCapturePage, { useDummy: useDummy });
@@ -1353,16 +1392,18 @@ function App() {
         h('div', { className: 'search-card' },
           h('div', { className: 'search-card-identity' },
             h('span', { className: 'app-title' }, 'MSL field insights'),
-            h('span', { className: 'app-subtitle' }, 'Field intelligence, governed synthesis, auditable decision lineage')
+            h('span', { className: 'app-subtitle' }, 'Medical Science Liaison field intelligence, governed synthesis, auditable decision lineage')
           ),
           h('div', { className: 'search-card-controls' },
+            h(Button, { type: 'link', size: 'small', onClick: function() { setAboutOpen(true); } }, 'About'),
             h('div', { className: 'demo-data-toggle' },
               h('span', null, 'Demo data'),
               h(Switch, { checked: useDummy, onChange: setUseDummy, size: 'small' })
             )
           )
         ),
-        renderPage()
+        renderPage(),
+        h(AboutModal, { open: aboutOpen, onClose: function() { setAboutOpen(false); } })
       )
     )
   );

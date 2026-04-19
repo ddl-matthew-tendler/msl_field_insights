@@ -771,5 +771,11 @@ body {
 
 .signal-count { font-weight: 600; color: #2E2E38; }
 
+/* ── About modal ──────────────────────────────────────────────── */
+.about-body p { font-size: 13px; line-height: 1.7; color: #2E2E38; margin: 0 0 12px; }
+.about-body h4 { font-size: 13px; font-weight: 700; color: #2E2E38; margin: 14px 0 6px; }
+.about-list { margin: 0 0 8px; padding-left: 20px; }
+.about-list li { font-size: 13px; line-height: 1.7; color: #2E2E38; }
+
 /* ── Responsive table fix ─────────────────────────────────────── */
 .ant-table-wrapper { overflow-x: auto; }
