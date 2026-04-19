@@ -41,7 +41,7 @@
       var elapsed = ((Date.now() - DBG.startTime) / 1000).toFixed(1);
 
       function check(label, ok, detail) {
-        var icon = ok === true ? '✅' : ok === false ? '❌' : '⚠️';
+        var icon = ok === true ? '[OK]' : ok === false ? '[FAIL]' : '[--]';
         return '<div style="display:flex;gap:6px;padding:3px 0;border-bottom:1px solid #2a2a3a;font-size:12px">' +
           '<span style="flex-shrink:0">' + icon + '</span>' +
           '<span style="color:#ccc;flex-shrink:0;min-width:160px">' + label + '</span>' +
@@ -68,7 +68,7 @@
       var rootStatus = rootEl ? (rootEl.children.length > 0 ? 'has ' + rootEl.children.length + ' child(ren)' : 'EMPTY — React did not mount') : 'element missing';
 
       var html = '<div style="font-family:monospace">';
-      html += '<div style="color:#A89BF0;font-weight:700;font-size:13px;margin-bottom:8px">🔍 MSLFieldInsights Debug Panel</div>';
+      html += '<div style="color:#A89BF0;font-weight:700;font-size:13px;margin-bottom:8px">MSLFieldInsights Debug Panel</div>';
       html += '<div style="color:#888;font-size:11px;margin-bottom:10px">Elapsed: ' + elapsed + 's · URL: ' + window.location.href + '</div>';
 
       html += '<div style="color:#A89BF0;font-size:11px;font-weight:600;margin:6px 0 3px;text-transform:uppercase;letter-spacing:.06em">CDN Libraries</div>';
@@ -83,12 +83,12 @@
       html += check('React render success', DBG.reactRenderSuccess, DBG.reactRenderSuccess ? 'yes' : 'not confirmed');
 
       if (DBG.networkFails.length > 0) {
-        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">⚠️ Failed Resource Loads (' + DBG.networkFails.length + ')</div>';
+        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">Failed Resource Loads (' + DBG.networkFails.length + ')</div>';
         DBG.networkFails.forEach(function(f) { html += check(f.tag, false, f.src); });
       }
 
       if (DBG.errors.length > 0) {
-        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">❌ Errors (' + DBG.errors.length + ')</div>';
+        html += '<div style="color:#ff6b6b;font-size:11px;font-weight:600;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em">Errors (' + DBG.errors.length + ')</div>';
         DBG.errors.slice(-10).forEach(function(e) {
           html += '<div style="background:#1a0a0a;border:1px solid #5a1a1a;border-radius:4px;padding:6px 8px;margin:3px 0;font-size:11px;color:#ff9a9a;word-break:break-all">';
           html += '<strong>[' + e.type + ']</strong> ' + e.msg;
@@ -96,7 +96,7 @@
           html += '</div>';
         });
       } else {
-        html += '<div style="color:#28A464;font-size:12px;margin-top:8px">✅ No JS errors captured</div>';
+        html += '<div style="color:#28A464;font-size:12px;margin-top:8px">No JS errors captured</div>';
       }
 
       if (DBG.warns.length > 0) {
@@ -112,7 +112,7 @@
       html += check('document.readyState', null, document.readyState);
 
       html += '<div style="margin-top:10px;display:flex;gap:8px">';
-      html += '<button onclick="window.__DBG_refresh()" style="background:#543FDE;color:#fff;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">↻ Refresh</button>';
+      html += '<button onclick="window.__DBG_refresh()" style="background:#543FDE;color:#fff;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">Refresh</button>';
       html += '<button onclick="console.log(JSON.stringify(window.__DBG,null,2))" style="background:#2a2a3a;color:#ccc;border:1px solid #444;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">Log to Console</button>';
       html += '<button onclick="document.getElementById(\'__dbg_panel\').style.display=\'none\'" style="background:#1a1a2a;color:#666;border:1px solid #333;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:12px">Close</button>';
       html += '</div>';
@@ -130,7 +130,7 @@
       // Toggle button — always visible in corner
       var btn = document.createElement('button');
       btn.id = '__dbg_btn';
-      btn.textContent = '🐛 Debug';
+      btn.textContent = 'Debug';
       btn.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:99999;background:#1a1a2e;color:#A89BF0;border:1px solid #543FDE;border-radius:6px;padding:6px 12px;font-size:12px;font-family:monospace;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.5)';
       btn.onclick = function() {
         var p = document.getElementById('__dbg_panel');

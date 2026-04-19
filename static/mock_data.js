@@ -194,7 +194,7 @@ var MOCK_INTERACTIONS = (function() {
       aeFlag: false, insightId: 'ins-010', modelVersion: 'claude-opus-4-6', promptVersion: 'v9',
       taxonomyVersion: 'v3.1',
       themes: ['Cross-TA: Rare disease interest', 'Trial feasibility'],
-      rawNotes: 'Dr. Rossi expressed interest in the RDX-115 mechanism in light of a subset of her myeloma patients with coincident rare lysosomal storage disorder features. She asked whether the company has explored this population and whether any compassionate use pathway exists. Cross-TA signal from Hematology → Rare Disease. Routing to Clinical Development for pipeline review.',
+      rawNotes: 'Dr. Rossi expressed interest in the RDX-115 mechanism in light of a subset of her myeloma patients with coincident rare lysosomal storage disorder features. She asked whether the company has explored this population and whether any compassionate use pathway exists. Cross-TA signal from Hematology to Rare Disease. Routing to Clinical Development for pipeline review.',
     },
     // Additional interactions to reach volume
     {
@@ -428,7 +428,7 @@ var MOCK_RERUN_RESULTS = {
     taxonomyVersion: 'v2.4', retrievalSnapshotId: 'snap-2025-09-30-onc',
     generatedAt: '2025-10-02T14:32:11Z', rerunAt: '2026-04-19T10:15:00Z',
     matchConfidence: 1.0,
-    summary: 'Q3 2025 Oncology Roll-Up (REPRODUCED BIT-IDENTICALLY)\n\n**Top 3 Themes:**\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\n**Routing Summary:** 14 signals → Medical Strategy, 9 → Clinical Dev, 3 → Market Access, 2 → PV, 5 → Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.',
+    summary: 'Q3 2025 Oncology Roll-Up (REPRODUCED BIT-IDENTICALLY)\n\n**Top 3 Themes:**\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\n**Routing Summary:** 14 signals to Medical Strategy, 9 to Clinical Dev, 3 to Market Access, 2 to PV, 5 to Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.',
     interactionCount: 58,
   },
   'Q4-2025-Hematology': {
@@ -436,7 +436,7 @@ var MOCK_RERUN_RESULTS = {
     taxonomyVersion: 'v3.0', retrievalSnapshotId: 'snap-2025-12-31-hem',
     generatedAt: '2026-01-03T09:22:44Z', rerunAt: '2026-04-19T10:16:00Z',
     matchConfidence: 1.0,
-    summary: 'Q4 2025 Hematology Roll-Up (REPRODUCED BIT-IDENTICALLY)\n\n**Top 3 Themes:**\n1. MRD endpoint adoption — growing KOL consensus (n=14 interactions)\n2. Payer access barriers — step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208 — no clear guidance in field (n=8 interactions)\n\n**Routing Summary:** 11 signals → Medical Strategy, 7 → Clinical Dev, 8 → Market Access, 1 → PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.',
+    summary: 'Q4 2025 Hematology Roll-Up (REPRODUCED BIT-IDENTICALLY)\n\n**Top 3 Themes:**\n1. MRD endpoint adoption — growing KOL consensus (n=14 interactions)\n2. Payer access barriers — step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208 — no clear guidance in field (n=8 interactions)\n\n**Routing Summary:** 11 signals to Medical Strategy, 7 to Clinical Dev, 8 to Market Access, 1 to PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.',
     interactionCount: 47,
   },
 };

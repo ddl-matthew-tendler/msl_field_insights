@@ -310,7 +310,7 @@ def governance_rerun(
             "taxonomyVersion": "v2.4", "retrievalSnapshotId": "snap-2025-09-30-onc",
             "generatedAt": "2025-10-02T14:32:11Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q3 2025 Oncology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\nRouting Summary: 14 signals → Medical Strategy, 9 → Clinical Dev, 3 → Market Access, 2 → PV, 5 → Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.",
+            "summary": "Q3 2025 Oncology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\nRouting Summary: 14 signals to Medical Strategy, 9 to Clinical Dev, 3 to Market Access, 2 to PV, 5 to Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.",
             "interactionCount": 58,
         },
         "Q4-2025-Hematology": {
@@ -318,7 +318,7 @@ def governance_rerun(
             "taxonomyVersion": "v3.0", "retrievalSnapshotId": "snap-2025-12-31-hem",
             "generatedAt": "2026-01-03T09:22:44Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q4 2025 Hematology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. MRD endpoint adoption. growing KOL consensus (n=14 interactions)\n2. Payer access barriers. step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208. no clear guidance in field (n=8 interactions)\n\nRouting Summary: 11 signals → Medical Strategy, 7 → Clinical Dev, 8 → Market Access, 1 → PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.",
+            "summary": "Q4 2025 Hematology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. MRD endpoint adoption. growing KOL consensus (n=14 interactions)\n2. Payer access barriers. step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208. no clear guidance in field (n=8 interactions)\n\nRouting Summary: 11 signals to Medical Strategy, 7 to Clinical Dev, 8 to Market Access, 1 to PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.",
             "interactionCount": 47,
         },
         "Q1-2026-Rare Disease": {
@@ -326,7 +326,7 @@ def governance_rerun(
             "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-03-31-rd",
             "generatedAt": "2026-04-02T08:11:33Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q1 2026 Rare Disease Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. Pediatric off-label 2–5y age group. escalation threshold crossed in week 8 (n=7 interactions)\n2. Caregiver burden as patient-reported outcome. KOL consensus forming (n=5 interactions)\n3. Enzyme replacement dosing frequency preference. monthly vs. biweekly (n=5 interactions)\n\nAE Flags: 2 spontaneous reports routed to PV (ARG-2026-00441, ARG-2026-00382)\n\nRouting Summary: 4 signals → Clinical Dev, 3 → Medical Strategy, 2 → PV confirmed intake\n\nBit-identical reproduction confirmed. Original generated Apr 2, 2026.",
+            "summary": "Q1 2026 Rare Disease Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. Pediatric off-label 2–5y age group. escalation threshold crossed in week 8 (n=7 interactions)\n2. Caregiver burden as patient-reported outcome. KOL consensus forming (n=5 interactions)\n3. Enzyme replacement dosing frequency preference. monthly vs. biweekly (n=5 interactions)\n\nAE Flags: 2 spontaneous reports routed to PV (ARG-2026-00441, ARG-2026-00382)\n\nRouting Summary: 4 signals to Clinical Dev, 3 to Medical Strategy, 2 to PV confirmed intake\n\nBit-identical reproduction confirmed. Original generated Apr 2, 2026.",
             "interactionCount": 22,
         },
     }
