@@ -622,6 +622,18 @@ body {
 
 .tab-body { padding: 18px; }
 
+.about-lede {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2E2E38;
+  background: #EDECFB;
+  border-left: 3px solid #543FDE;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
 .lineage-body-header {
   font-weight: 600;
   font-size: 14px;

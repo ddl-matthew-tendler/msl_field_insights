@@ -1355,6 +1355,9 @@ function AboutModal(props) {
     width: 640,
   },
     h('div', { className: 'about-body' },
+      h('p', { className: 'about-lede' },
+        'MSL field insights turns every medical science liaison\u2019s field conversation into a governed, auditable signal, so pharma leadership sees what physicians are actually saying across the country, and compliance can prove exactly how every insight was generated, years after the fact.'
+      ),
       h('p', null,
         h('strong', null, 'Medical Science Liaisons (MSLs) '),
         'are PhD- or PharmD-credentialed field-medical scientists who meet with healthcare providers (HCPs) to share clinical and scientific evidence about a pharma company\'s therapies. MSLs sit inside Medical Affairs, separate from Commercial, and are firewalled under the PhRMA Code.'
