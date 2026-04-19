@@ -37,17 +37,17 @@ var message = _antd.message;
 var TextArea = Input ? Input.TextArea : null;
 
 Highcharts.setOptions({
-  colors: ['#543FDE', '#0070CC', '#28A464', '#CCB718', '#FF6543', '#E835A7', '#2EDCC4', '#A9734C'],
+  colors: ['#3B3BD3', '#0070CC', '#28A464', '#CCB718', '#FF6543', '#E835A7', '#2EDCC4', '#A9734C'],
   chart: { style: { fontFamily: 'Inter, Lato, Helvetica Neue, Arial, sans-serif' } },
 });
 
 var dominoTheme = {
   token: {
-    colorPrimary: '#543FDE',
-    colorPrimaryHover: '#3B23D1',
-    colorPrimaryActive: '#311EAE',
-    colorText: '#2E2E38',
-    colorTextSecondary: '#65657B',
+    colorPrimary: '#3B3BD3',
+    colorPrimaryHover: '#2828B8',
+    colorPrimaryActive: '#1820A0',
+    colorText: '#3F4547',
+    colorTextSecondary: '#7F8385',
     colorTextTertiary: '#8F8FA3',
     colorSuccess: '#28A464',
     colorWarning: '#CCB718',
@@ -55,7 +55,7 @@ var dominoTheme = {
     colorInfo: '#0070CC',
     colorBgContainer: '#FFFFFF',
     colorBgLayout: '#FAFAFA',
-    colorBorder: '#E0E0E0',
+    colorBorder: '#DBE4E8',
     fontFamily: 'Inter, Lato, Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize: 14,
     borderRadius: 4,
@@ -208,32 +208,32 @@ function PostCallCapturePage(props) {
 
   return h('div', null,
     h('div', { className: 'page-header' },
-      h('h2', { className: 'page-title' }, 'Post-Call Capture'),
-      h('p', { className: 'page-subtitle' }, 'Submit a post-call note — AI generates themed summary, follow-up draft, and routing recommendation in <60s')
+      h('h2', { className: 'page-title' }, 'Post-call capture'),
+      h('p', { className: 'page-subtitle' }, 'Submit a post-call note — AI generates a themed summary, follow-up draft, and routing recommendation in under 60 seconds')
     ),
 
     stats ? h('div', { className: 'stats-row' },
-      h(StatCard, { label: 'Interactions This Week', value: stats.interactions, color: 'primary' }),
-      h(StatCard, { label: 'Avg Time-to-Signal', value: stats.avgDays + 'd', color: 'success', sub: 'Target: <7 days' }),
-      h(StatCard, { label: 'Insights Generated', value: stats.insightsGenerated, color: 'info' }),
-      h(StatCard, { label: 'AE Flags (QTD)', value: stats.aeFlags, color: 'danger', sub: 'Requires PV review' })
+      h(StatCard, { label: 'Interactions this week', value: stats.interactions, color: 'primary' }),
+      h(StatCard, { label: 'Avg time-to-signal', value: stats.avgDays + 'd', color: 'success', sub: 'Target: <7 days' }),
+      h(StatCard, { label: 'Insights generated', value: stats.insightsGenerated, color: 'info' }),
+      h(StatCard, { label: 'AE flags (QTD)', value: stats.aeFlags, color: 'danger', sub: 'Requires PV review' })
     ) : null,
 
     h('div', { className: 'capture-layout' },
       // Left: input
       h('div', { className: 'note-input-area' },
         h('div', { style: { marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' } },
-          h('span', { style: { fontWeight: 600, fontSize: 14 } }, 'Post-Call Note'),
+          h('span', { style: { fontWeight: 600, fontSize: 14 } }, 'Post-call note'),
           h(Space, null,
             h('span', { style: { fontSize: 11, color: '#8F8FA3' } }, 'Load sample:'),
             h(Button, { size: 'small', onClick: function() { loadSample('default'); } }, 'Standard'),
-            h(Button, { size: 'small', onClick: function() { loadSample('adverse'); }, danger: true }, 'AE Signal'),
-            h(Button, { size: 'small', onClick: function() { loadSample('pediatric'); }, style: { color: '#543FDE', borderColor: '#543FDE' } }, 'Pediatric OL')
+            h(Button, { size: 'small', onClick: function() { loadSample('adverse'); }, danger: true }, 'AE signal'),
+            h(Button, { size: 'small', onClick: function() { loadSample('pediatric'); } }, 'Pediatric OL')
           )
         ),
 
         h('div', { style: { marginBottom: 12 } },
-          h('label', { style: { fontSize: 12, color: '#65657B', display: 'block', marginBottom: 4 } }, 'HCP'),
+          h('label', { style: { fontSize: 12, color: '#7F8385', display: 'block', marginBottom: 4 } }, 'HCP'),
           h(Select, {
             style: { width: '100%' },
             placeholder: 'Select HCP',
@@ -249,7 +249,7 @@ function PostCallCapturePage(props) {
           rows: 12,
           value: note,
           onChange: function(e) { setNote(e.target.value); },
-          placeholder: 'Dictate or type your post-call note here...\n\nTip: Try one of the sample notes above to see AE detection or Pediatric off-label routing in action.',
+          placeholder: 'Dictate or type your post-call note here...\n\nTip: Try one of the sample notes above to see AE detection or pediatric off-label routing in action.',
           style: { marginBottom: 12, fontSize: 13, lineHeight: 1.6 },
         }),
 
@@ -260,7 +260,7 @@ function PostCallCapturePage(props) {
           loading: loading,
           disabled: !note.trim(),
           onClick: submitNote,
-        }, loading ? 'Analyzing...' : '⚡ Submit Note — Generate AI Summary'),
+        }, loading ? 'Analyzing...' : 'Analyze note'),
 
         h('p', { style: { fontSize: 11, color: '#8F8FA3', marginTop: 8, textAlign: 'center' } },
           'Model: ', h(VersionTag, { v: 'claude-opus-4-6' }), ' · Prompt: ', h(VersionTag, { v: 'v9' }), ' · Taxonomy: ', h(VersionTag, { v: 'v3.1' })
@@ -269,7 +269,7 @@ function PostCallCapturePage(props) {
 
       // Right: AI output
       h('div', { className: 'ai-output-area' },
-        h('div', { style: { fontWeight: 600, fontSize: 14, marginBottom: 12 } }, 'AI Output'),
+        h('div', { style: { fontWeight: 600, fontSize: 14, marginBottom: 12 } }, 'AI output'),
 
         loading ? h('div', { className: 'ai-thinking' },
           h(Spin, null),
@@ -278,14 +278,15 @@ function PostCallCapturePage(props) {
 
         !loading && !aiOutput ? h('div', { className: 'empty-state' },
           h('div', { className: 'empty-state-icon' }, '📋'),
-          h('div', { className: 'empty-state-text' }, 'Submit a note to see AI-generated insights')
+          h('div', { className: 'empty-state-title' }, 'No output yet'),
+          h('div', { className: 'empty-state-text' }, 'Enter a note and click "Analyze note" to generate a themed summary, follow-up draft, and routing recommendation')
         ) : null,
 
         !loading && aiOutput ? h('div', null,
           aiOutput.aeFlag ? h(Alert, {
             type: 'error',
             showIcon: true,
-            message: '⚠️ Potential Adverse Event Detected',
+            message: 'Potential adverse event detected',
             description: 'This note contains language suggestive of a spontaneous adverse event report. Mandatory routing to Pharmacovigilance under 21 CFR 314.80. Human confirmation required before PV intake record is created.',
             style: { marginBottom: 12 },
           }) : null,
@@ -309,12 +310,12 @@ function PostCallCapturePage(props) {
               },
               {
                 key: 'followup',
-                label: 'Follow-Up Draft',
+                label: 'Follow-up draft',
                 children: h('div', null,
                   h('div', { style: { background: '#F8F8FC', borderRadius: 6, padding: '12px 14px', fontSize: 13, lineHeight: 1.7, whiteSpace: 'pre-wrap', fontFamily: 'Georgia, serif' } },
                     aiOutput.followUpDraft
                   ),
-                  h(Button, { style: { marginTop: 10 }, size: 'small' }, '📋 Copy Draft')
+                  h(Button, { style: { marginTop: 10 }, size: 'small' }, 'Copy draft')
                 ),
               },
               {
@@ -322,7 +323,7 @@ function PostCallCapturePage(props) {
                 label: 'Routing',
                 children: h('div', null,
                   h('div', { style: { marginBottom: 12 } },
-                    h('div', { style: { fontSize: 12, color: '#65657B', marginBottom: 6 } }, 'Recommended Destination'),
+                    h('div', { style: { fontSize: 12, color: '#7F8385', marginBottom: 6 } }, 'Recommended destination'),
                     h('span', { className: 'routing-badge ' + routingColor(aiOutput.routing.destination) },
                       '→ ' + aiOutput.routing.destination
                     )
@@ -333,10 +334,10 @@ function PostCallCapturePage(props) {
                       percent: Math.round(aiOutput.routing.confidence * 100),
                       size: 'small',
                       style: { flex: 1, marginLeft: 8 },
-                      strokeColor: aiOutput.routing.confidence > 0.9 ? '#28A464' : '#543FDE',
+                      strokeColor: aiOutput.routing.confidence > 0.9 ? '#28A464' : '#3B3BD3',
                     })
                   ),
-                  h('div', { style: { background: '#F8F8FC', borderRadius: 6, padding: '10px 12px', fontSize: 12, color: '#65657B', marginTop: 10, lineHeight: 1.6 } },
+                  h('div', { style: { background: '#F8F8FC', borderRadius: 6, padding: '10px 12px', fontSize: 12, color: '#7F8385', marginTop: 10, lineHeight: 1.6 } },
                     aiOutput.routing.rationale
                   ),
 
@@ -346,7 +347,7 @@ function PostCallCapturePage(props) {
                         type: 'primary',
                         style: { marginTop: 12 },
                         onClick: function() { setApproved(true); message.success('Signal routed to ' + aiOutput.routing.destination); },
-                      }, '✓ Approve & Route')
+                      }, 'Approve & route')
                 ),
               },
             ],
@@ -530,33 +531,33 @@ function DashboardPage(props) {
 
   return h('div', null,
     h('div', { className: 'page-header' },
-      h('h2', { className: 'page-title' }, 'MSL Lead Dashboard'),
+      h('h2', { className: 'page-title' }, 'MSL lead dashboard'),
       h('p', { className: 'page-subtitle' }, 'Team insight flow, theme emergence, routing status, and decision loop metrics')
     ),
 
     stats ? h('div', { className: 'stats-row' },
       h(StatCard, { label: 'Interactions (QTD)', value: stats.interactions, color: 'primary',
         active: !tableFilter && !taFilter, onClick: function() { setTableFilter(null); setTaFilter(null); } }),
-      h(StatCard, { label: 'Insights Routed', value: stats.insightsRouted, color: 'info',
+      h(StatCard, { label: 'Insights routed', value: stats.insightsRouted, color: 'info',
         active: tableFilter && tableFilter.value === 'Routed',
         onClick: function() { setTableFilter(tableFilter && tableFilter.value === 'Routed' ? null : { type: 'status', value: 'Routed' }); } }),
-      h(StatCard, { label: 'Avg Time-to-Signal', value: stats.avgDays + 'd', color: 'success', sub: 'Target: <7 days' }),
-      h(StatCard, { label: 'Decision Loop Closed', value: stats.closedPct + '%', color: 'success', sub: 'Target: 40%' }),
-      h(StatCard, { label: 'AE Flags', value: stats.aeFlags, color: 'danger',
+      h(StatCard, { label: 'Avg time-to-signal', value: stats.avgDays + 'd', color: 'success', sub: 'Target: <7 days' }),
+      h(StatCard, { label: 'Decision loop closed', value: stats.closedPct + '%', color: 'success', sub: 'Target: 40%' }),
+      h(StatCard, { label: 'AE flags', value: stats.aeFlags, color: 'danger',
         active: tableFilter && tableFilter.type === 'ae',
         onClick: function() { setTableFilter(tableFilter && tableFilter.type === 'ae' ? null : { type: 'ae' }); } }),
-      h(StatCard, { label: 'Pending Routing', value: stats.pendingRouting, color: 'warning',
+      h(StatCard, { label: 'Pending routing', value: stats.pendingRouting, color: 'warning',
         active: tableFilter && tableFilter.value === 'Pending',
         onClick: function() { setTableFilter(tableFilter && tableFilter.value === 'Pending' ? null : { type: 'dest', value: 'Pending' }); } })
     ) : null,
 
     h('div', { className: 'charts-row' },
       h('div', { className: 'chart-container' },
-        h('div', { className: 'chart-title' }, 'Theme Emergence by Week — click bar to filter table'),
+        h('div', { className: 'chart-title' }, 'Theme emergence by week — click a bar to filter'),
         h('div', { ref: themeChartRef, id: 'theme-chart' })
       ),
       h('div', { className: 'chart-container' },
-        h('div', { className: 'chart-title' }, 'Routing Destinations — click segment to filter table'),
+        h('div', { className: 'chart-title' }, 'Routing destinations — click a segment to filter'),
         h('div', { ref: donutChartRef, id: 'donut-chart' })
       )
     ),
@@ -564,16 +565,16 @@ function DashboardPage(props) {
     h('div', { className: 'panel' },
       h('div', { className: 'panel-header' },
         h('span', { className: 'panel-title' },
-          tableFilter ? 'Interactions — ' + (tableFilter.value || 'AE Flags') : 'All Interactions'
+          tableFilter ? 'Interactions — ' + (tableFilter.value || 'AE flags') : 'All interactions'
         ),
         tableFilter ? h(Tag, {
           closable: true,
           onClose: function() { setTableFilter(null); },
           color: 'purple',
           style: { marginLeft: 4 }
-        }, tableFilter.value || 'AE Flags') : null,
+        }, tableFilter.value || 'AE flags') : null,
         h('div', { style: { marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' } },
-          h('span', { style: { fontSize: 12, color: '#65657B' } }, 'Filter by TA:'),
+          h('span', { style: { fontSize: 12, color: '#7F8385' } }, 'Filter by TA:'),
           h(Select, {
             style: { width: 140 },
             placeholder: 'All TAs',
@@ -597,8 +598,8 @@ function DashboardPage(props) {
             return h('div', { style: { padding: '12px 24px', background: '#FAFAFA' } },
               h('div', { style: { display: 'flex', gap: 16, flexWrap: 'wrap' } },
                 h('div', { style: { flex: 1, minWidth: 280 } },
-                  h('div', { style: { fontSize: 11, fontWeight: 600, color: '#8F8FA3', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Source Note Snippet'),
-                  h('div', { style: { fontSize: 12, lineHeight: 1.7, color: '#2E2E38', background: '#fff', border: '1px solid #E0E0E0', borderRadius: 6, padding: '10px 12px' } },
+                  h('div', { style: { fontSize: 11, fontWeight: 600, color: '#8F8FA3', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Source note snippet'),
+                  h('div', { style: { fontSize: 12, lineHeight: 1.7, color: '#3F4547', background: '#fff', border: '1px solid #DBE4E8', borderRadius: 6, padding: '10px 12px' } },
                     rec.rawNotes || '(Note captured via voice — transcript retained in governed corpus)'
                   )
                 ),
@@ -723,8 +724,8 @@ function PreCallBriefPage(props) {
 
   return h('div', null,
     h('div', { className: 'page-header' },
-      h('h2', { className: 'page-title' }, 'Pre-Call Brief'),
-      h('p', { className: 'page-subtitle' }, 'Select an HCP to generate a full cross-TA brief before your meeting')
+      h('h2', { className: 'page-title' }, 'Pre-call brief'),
+      h('p', { className: 'page-subtitle' }, 'Search for an HCP to see their full cross-TA interaction history, recent signals, and trial involvement before your meeting')
     ),
 
     h('div', { className: 'panel' },
@@ -766,7 +767,7 @@ function PreCallBriefPage(props) {
         brief.crossTaAlert && brief.crossTaDetail ? h(Alert, {
           type: 'info',
           showIcon: true,
-          message: 'Cross-TA Signal Detected',
+          message: 'Cross-TA signal detected',
           description: brief.crossTaDetail,
           style: { marginTop: 14 },
         }) : null
@@ -775,7 +776,7 @@ function PreCallBriefPage(props) {
       // Signals + timeline
       h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 } },
         h('div', { className: 'panel' },
-          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Recent Signals')),
+          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Recent signals')),
           h('div', { className: 'panel-body' },
             h('ul', { style: { margin: 0, paddingLeft: 18, lineHeight: 1.9 } },
               (brief.recentSignals || []).map(function(s) {
@@ -785,15 +786,15 @@ function PreCallBriefPage(props) {
           )
         ),
         h('div', { className: 'panel' },
-          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Interaction Timeline (' + (brief.interactions || []).length + ' interactions)')),
+          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Interaction timeline (' + (brief.interactions || []).length + ' interactions)')),
           h('div', { className: 'panel-body', style: { maxHeight: 240, overflowY: 'auto' } },
             (brief.interactions || []).length === 0 ? h('div', { style: { color: '#8F8FA3', fontSize: 13 } }, 'No prior interactions recorded') :
             h(Timeline, {
               items: (brief.interactions || []).map(function(i) {
                 return {
-                  color: '#543FDE',
+                  color: '#3B3BD3',
                   children: h('div', null,
-                    h('div', { style: { fontSize: 12, color: '#65657B' } }, i.date + ' · ' + i.msl),
+                    h('div', { style: { fontSize: 12, color: '#7F8385' } }, i.date + ' · ' + i.msl),
                     h('div', { style: { display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 2 } },
                       taTag(i.ta),
                       h(Tag, { style: { fontSize: 10 } }, i.product),
@@ -810,13 +811,13 @@ function PreCallBriefPage(props) {
       // Publications + Trials
       h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 } },
         h('div', { className: 'panel' },
-          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Recent Publications')),
+          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Recent publications')),
           (brief.publications || []).length === 0
             ? h('div', { className: 'panel-body', style: { color: '#8F8FA3', fontSize: 13 } }, 'No publications in database')
             : h(Table, { dataSource: brief.publications, columns: pubColumns, rowKey: 'title', size: 'small', pagination: false })
         ),
         h('div', { className: 'panel' },
-          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Trial Involvement')),
+          h('div', { className: 'panel-header' }, h('span', { className: 'panel-title' }, 'Trial involvement')),
           (brief.trials || []).length === 0
             ? h('div', { className: 'panel-body', style: { color: '#8F8FA3', fontSize: 13 } }, 'No active trials in database')
             : h(Table, { dataSource: brief.trials, columns: trialColumns, rowKey: 'id', size: 'small', pagination: false })
@@ -826,7 +827,8 @@ function PreCallBriefPage(props) {
 
     !loading && !brief ? h('div', { className: 'empty-state' },
       h('div', { className: 'empty-state-icon' }, '👤'),
-      h('div', { className: 'empty-state-text' }, 'Select an HCP above to generate their pre-call brief')
+      h('div', { className: 'empty-state-title' }, 'No HCP selected'),
+      h('div', { className: 'empty-state-text' }, 'Search for an HCP above to see their interaction history, signals, and trial involvement')
     ) : null
   );
 }
@@ -907,12 +909,12 @@ function GovernancePage(props) {
         insightId: id,
         theme: (insights.find(function(i) { return i.id === id; }) || {}).theme || 'Unknown Theme',
         steps: [
-          { step: 'Field Interaction', status: 'completed', detail: '4 HCP interactions captured across MSLs', timestamp: '2026-04-12' },
-          { step: 'Voice / Text Capture', status: 'completed', detail: 'Post-call notes ingested to governed corpus', timestamp: '2026-04-12' },
-          { step: 'AI Theming', status: 'completed', detail: 'Model: claude-opus-4-6 | Prompt: v9 | Taxonomy: v3.1 | Snapshot: snap-2026-04-14-001', timestamp: '2026-04-14' },
-          { step: 'Routing Decision', status: 'completed', detail: 'Routed to Clinical Development | Confidence: 97%', timestamp: '2026-04-14' },
-          { step: 'MSL Approval', status: 'completed', detail: 'MSL Dr. Anya Petrov approved routing', timestamp: '2026-04-14' },
-          { step: 'Downstream Decision', status: id === 'ins-003' ? 'completed' : 'pending', detail: id === 'ins-003' ? 'ILLUMINATE-C Pediatric Extension — 2–5y cohort feasibility review initiated' : 'Awaiting downstream decision linkage', timestamp: id === 'ins-003' ? '2026-04-18' : null },
+          { step: 'Field interaction', status: 'completed', detail: '4 HCP interactions captured across MSLs', timestamp: '2026-04-12' },
+          { step: 'Voice / text capture', status: 'completed', detail: 'Post-call notes ingested to governed corpus', timestamp: '2026-04-12' },
+          { step: 'AI theming', status: 'completed', detail: 'Model: claude-opus-4-6 | Prompt: v9 | Taxonomy: v3.1 | Snapshot: snap-2026-04-14-001', timestamp: '2026-04-14' },
+          { step: 'Routing decision', status: 'completed', detail: 'Routed to Clinical Development | Confidence: 97%', timestamp: '2026-04-14' },
+          { step: 'MSL approval', status: 'completed', detail: 'MSL Dr. Anya Petrov approved routing', timestamp: '2026-04-14' },
+          { step: 'Downstream decision', status: id === 'ins-003' ? 'completed' : 'pending', detail: id === 'ins-003' ? 'ILLUMINATE-C Pediatric Extension — 2–5y cohort feasibility review initiated' : 'Awaiting downstream decision linkage', timestamp: id === 'ins-003' ? '2026-04-18' : null },
         ],
         modelVersion: 'claude-opus-4-6', promptVersion: 'v9', taxonomyVersion: 'v3.1',
         retrievalSnapshotId: 'snap-2026-04-14-001',
@@ -949,15 +951,15 @@ function GovernancePage(props) {
     { title: 'Version', dataIndex: 'version', key: 'v', width: 80, render: function(v) { return h(VersionTag, { v: v }); } },
     { title: 'Date', dataIndex: 'date', key: 'date', width: 100 },
     { title: 'Status', dataIndex: 'status', key: 'status', width: 90, render: function(s) { return h(Tag, { color: s === 'Active' ? 'green' : 'default' }, s); } },
-    { title: 'Change Note', dataIndex: 'changeNote', key: 'note' },
+    { title: 'Change note', dataIndex: 'changeNote', key: 'note' },
   ];
 
   var insightColumns = [
     { title: 'ID', dataIndex: 'id', key: 'id', width: 80, render: function(v) { return h(Tag, { color: 'purple', style: { cursor: 'pointer', fontSize: 10 }, onClick: function() { loadLineage(v); } }, v); } },
     { title: 'Theme', dataIndex: 'theme', key: 'theme' },
     { title: 'Taxonomy', dataIndex: 'taxonomy', key: 'tax', width: 190 },
-    { title: 'Confidence', dataIndex: 'confidence', key: 'conf', width: 110, render: function(c) { return h(Progress, { percent: Math.round(c * 100), size: 'small', strokeColor: c > 0.9 ? '#28A464' : '#543FDE' }); } },
-    { title: 'Routed To', dataIndex: 'routedTo', key: 'rt', width: 170, render: function(d) { return d ? h('span', { className: 'routing-badge ' + routingColor(d), style: { fontSize: 10, padding: '1px 7px' } }, d) : '—'; } },
+    { title: 'Confidence', dataIndex: 'confidence', key: 'conf', width: 110, render: function(c) { return h(Progress, { percent: Math.round(c * 100), size: 'small', strokeColor: c > 0.9 ? '#28A464' : '#3B3BD3' }); } },
+    { title: 'Routed to', dataIndex: 'routedTo', key: 'rt', width: 170, render: function(d) { return d ? h('span', { className: 'routing-badge ' + routingColor(d), style: { fontSize: 10, padding: '1px 7px' } }, d) : '—'; } },
     { title: 'Decision', dataIndex: 'decisionLinked', key: 'dec', width: 80, render: function(v) { return v ? h(Tag, { color: 'green' }, '✓ Linked') : h(Tag, { color: 'default' }, 'Pending'); } },
     { title: 'Lineage', key: 'lineage', width: 80, render: function(_, rec) { return h(Button, { size: 'small', onClick: function() { loadLineage(rec.id); } }, 'View'); } },
   ];
@@ -965,34 +967,34 @@ function GovernancePage(props) {
   var tabItems = [
     {
       key: 'rerun',
-      label: 'Insight Re-Run',
+      label: 'Insight re-run',
       children: h('div', { style: { padding: 18 } },
         h('div', { style: { display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 16, alignItems: 'flex-end' } },
           h('div', null,
-            h('div', { style: { fontSize: 11, color: '#65657B', marginBottom: 4 } }, 'Quarter'),
+            h('div', { style: { fontSize: 11, color: '#7F8385', marginBottom: 4 } }, 'Quarter'),
             h(Select, { value: quarter, onChange: setQuarter, style: { width: 140 },
               options: [{ value: 'Q3-2025', label: 'Q3 2025' }, { value: 'Q4-2025', label: 'Q4 2025' }, { value: 'Q1-2026', label: 'Q1 2026' }] })
           ),
           h('div', null,
-            h('div', { style: { fontSize: 11, color: '#65657B', marginBottom: 4 } }, 'Therapeutic Area'),
+            h('div', { style: { fontSize: 11, color: '#7F8385', marginBottom: 4 } }, 'Therapeutic area'),
             h(Select, { value: ta, onChange: setTa, style: { width: 140 },
               options: [{ value: 'Oncology', label: 'Oncology' }, { value: 'Hematology', label: 'Hematology' }, { value: 'Rare Disease', label: 'Rare Disease' }] })
           ),
           h('div', null,
-            h('div', { style: { fontSize: 11, color: '#65657B', marginBottom: 4 } }, 'Taxonomy Version'),
+            h('div', { style: { fontSize: 11, color: '#7F8385', marginBottom: 4 } }, 'Taxonomy version'),
             h(Select, { value: taxVer, onChange: setTaxVer, style: { width: 100 },
               options: MOCK_TAXONOMY_VERSIONS.map(function(t) { return { value: t.version, label: t.version }; }) })
           ),
-          h(Button, { type: 'primary', loading: rerunLoading, onClick: runRerun }, '↻ Regenerate Roll-Up')
+          h(Button, { type: 'primary', loading: rerunLoading, onClick: runRerun }, 'Regenerate roll-up')
         ),
 
-        rerunLoading ? h('div', { style: { textAlign: 'center', padding: 40 } }, h(Spin, null), h('div', { style: { marginTop: 12, color: '#65657B', fontSize: 13 } }, 'Re-running synthesis with pinned model, prompt, and retrieval snapshot...')) : null,
+        rerunLoading ? h('div', { style: { textAlign: 'center', padding: 40 } }, h(Spin, null), h('div', { style: { marginTop: 12, color: '#7F8385', fontSize: 13 } }, 'Re-running synthesis with pinned model, prompt, and retrieval snapshot...')) : null,
 
         rerunResult ? h('div', null,
           h(Alert, {
             type: 'success',
             showIcon: true,
-            message: 'Bit-Identical Reproduction Confirmed',
+            message: 'Bit-identical reproduction confirmed',
             description: h('div', null,
               h('span', null, 'Model: '), h(VersionTag, { v: rerunResult.modelVersion }), ' ',
               h('span', null, ' · Prompt: '), h(VersionTag, { v: rerunResult.promptVersion }), ' ',
@@ -1011,10 +1013,10 @@ function GovernancePage(props) {
     },
     {
       key: 'lineage',
-      label: 'Lineage Browser',
+      label: 'Lineage browser',
       children: h('div', { style: { padding: 18 } },
         h('div', { style: { marginBottom: 16 } },
-          h('div', { style: { fontSize: 13, color: '#65657B', marginBottom: 10 } }, 'Select an insight to view its full lineage chain. Click an insight ID in the table below, or use the Insights table on the right.'),
+          h('div', { style: { fontSize: 13, color: '#7F8385', marginBottom: 10 } }, 'Select an insight to view its full lineage chain, or click an insight ID in the Insights registry tab.'),
           h('div', { style: { display: 'flex', gap: 8, alignItems: 'center' } },
             h(Select, {
               style: { width: 320 },
@@ -1028,9 +1030,15 @@ function GovernancePage(props) {
 
         lineageLoading ? h('div', { style: { textAlign: 'center', padding: 40 } }, h(Spin, null)) : null,
 
+        !lineageLoading && !lineage ? h('div', { className: 'empty-state' },
+          h('div', { className: 'empty-state-icon' }, '🔗'),
+          h('div', { className: 'empty-state-title' }, 'No insight selected'),
+          h('div', { className: 'empty-state-text' }, 'Select an insight above to trace the full chain from field note to downstream decision')
+        ) : null,
+
         lineage ? h('div', null,
           h('div', { style: { fontWeight: 600, fontSize: 14, marginBottom: 4 } }, lineage.theme),
-          h('div', { style: { fontSize: 12, color: '#65657B', marginBottom: 16 } },
+          h('div', { style: { fontSize: 12, color: '#7F8385', marginBottom: 16 } },
             'Model: ', h(VersionTag, { v: lineage.modelVersion }), ' · Prompt: ', h(VersionTag, { v: lineage.promptVersion }),
             ' · Taxonomy: ', h(VersionTag, { v: lineage.taxonomyVersion }), ' · Snapshot: ', h(VersionTag, { v: lineage.retrievalSnapshotId })
           ),
@@ -1055,7 +1063,7 @@ function GovernancePage(props) {
           lineage.decisionLinked ? h(Alert, {
             type: 'success',
             showIcon: true,
-            message: 'Downstream Decision Linked',
+            message: 'Downstream decision linked',
             description: lineage.decisionType,
             style: { marginTop: 12 },
           }) : h(Alert, {
@@ -1070,7 +1078,7 @@ function GovernancePage(props) {
     },
     {
       key: 'audit',
-      label: 'Audit Log',
+      label: 'Audit log',
       children: h('div', null,
         h(Table, {
           dataSource: auditLog,
@@ -1084,7 +1092,7 @@ function GovernancePage(props) {
     },
     {
       key: 'taxonomy',
-      label: 'Taxonomy Manager',
+      label: 'Taxonomy manager',
       children: h('div', { style: { padding: 18 } },
         h(Alert, { type: 'info', message: 'Taxonomy versions are immutable once pinned. New versions must be approved by the Medical Insights team before activation.', style: { marginBottom: 14 }, showIcon: true }),
         h(Table, {
@@ -1098,7 +1106,7 @@ function GovernancePage(props) {
     },
     {
       key: 'insights',
-      label: 'Insights Registry',
+      label: 'Insights registry',
       children: h(Table, {
         dataSource: insights,
         columns: insightColumns,
@@ -1112,15 +1120,15 @@ function GovernancePage(props) {
 
   return h('div', null,
     h('div', { className: 'page-header' },
-      h('h2', { className: 'page-title' }, 'Governance Console'),
+      h('h2', { className: 'page-title' }, 'Governance console'),
       h('p', { className: 'page-subtitle' }, 'Insight re-runs, lineage browser, audit log, and taxonomy management')
     ),
 
     gStats ? h('div', { className: 'stats-row' },
-      h(StatCard, { label: 'Total Insights (24 mo)', value: gStats.totalInsights, color: 'primary' }),
-      h(StatCard, { label: 'Reproducible Re-Runs', value: gStats.rerunCount, color: 'success', sub: '100% bit-identical' }),
-      h(StatCard, { label: 'Audit Events', value: gStats.auditEvents, color: 'info', sub: '7-year WORM retention' }),
-      h(StatCard, { label: 'Taxonomy Versions', value: gStats.taxonomyVersions, color: 'warning' })
+      h(StatCard, { label: 'Total insights (24 mo)', value: gStats.totalInsights, color: 'primary' }),
+      h(StatCard, { label: 'Reproducible re-runs', value: gStats.rerunCount, color: 'success', sub: '100% bit-identical' }),
+      h(StatCard, { label: 'Audit events', value: gStats.auditEvents, color: 'info', sub: '7-year WORM retention' }),
+      h(StatCard, { label: 'Taxonomy versions', value: gStats.taxonomyVersions, color: 'warning' })
     ) : null,
 
     h('div', { className: 'panel' },
@@ -1165,7 +1173,7 @@ function CommercialViewPage(props) {
       chart: { type: 'line', height: 220 },
       title: { text: null },
       xAxis: { categories: trendData.map(function(d) { return d.month; }) },
-      yAxis: { title: { text: 'Signal Count (aggregated)' } },
+      yAxis: { title: { text: 'Signal count (aggregated)' } },
       plotOptions: {
         line: {
           cursor: 'pointer',
@@ -1206,31 +1214,31 @@ function CommercialViewPage(props) {
   var columns = [
     { title: 'Theme', dataIndex: 'theme', key: 'theme',
       sorter: function(a, b) { return a.theme.localeCompare(b.theme); } },
-    { title: 'Therapeutic Area', dataIndex: 'ta', key: 'ta', width: 140,
+    { title: 'Therapeutic area', dataIndex: 'ta', key: 'ta', width: 140,
       filters: [{ text: 'Oncology', value: 'Oncology' }, { text: 'Hematology', value: 'Hematology' }, { text: 'Rare Disease', value: 'Rare Disease' }],
       onFilter: function(v, r) { return r.ta === v; },
       render: function(ta) { return taTag(ta); }
     },
-    { title: 'Signal Count (N≥5)', dataIndex: 'signalCount', key: 'count', width: 150,
+    { title: 'Signal count (N≥5)', dataIndex: 'signalCount', key: 'count', width: 150,
       sorter: function(a, b) { return a.signalCount - b.signalCount; },
       render: function(n) { return h('span', { style: { fontWeight: 600 } }, n + ' interactions'); }
     },
     { title: 'Trend', dataIndex: 'trend', key: 'trend', width: 80, render: function(t) { return trendIcon(t); } },
-    { title: 'Last Updated', dataIndex: 'lastUpdated', key: 'updated', width: 120,
+    { title: 'Last updated', dataIndex: 'lastUpdated', key: 'updated', width: 120,
       sorter: function(a, b) { return new Date(a.lastUpdated) - new Date(b.lastUpdated); },
     },
   ];
 
   return h('div', null,
     h('div', { className: 'page-header' },
-      h('h2', { className: 'page-title' }, 'Commercial View'),
+      h('h2', { className: 'page-title' }, 'Commercial view'),
       h('p', { className: 'page-subtitle' }, 'Aggregated, de-identified thematic trends — PhRMA Code compliant')
     ),
 
     h('div', { className: 'firewall-banner' },
       h('div', { className: 'firewall-banner-icon' }, '🔒'),
       h('div', { className: 'firewall-banner-text' },
-        h('h4', null, 'PhRMA Code Compliant — Medical/Commercial Firewall Active'),
+        h('h4', null, 'PhRMA Code compliant — medical/commercial firewall active'),
         h('p', null,
           'All themes are aggregated from a minimum of 5 independent field interactions (N≥5 threshold). No HCP identifiers, individual interaction data, or specific off-label references are visible in this view. Firewall policy is externally auditable by the Chief Compliance Officer. All access to this view is SIEM-logged.'
         )
@@ -1238,19 +1246,19 @@ function CommercialViewPage(props) {
     ),
 
     h('div', { className: 'stats-row' },
-      h(StatCard, { label: 'Active TA Theme Areas', value: stats.activeTas, color: 'primary' }),
-      h(StatCard, { label: 'Emerging Signals (↑)', value: stats.emerging, color: 'info', sub: 'Increasing trend' }),
+      h(StatCard, { label: 'Active TA theme areas', value: stats.activeTas, color: 'primary' }),
+      h(StatCard, { label: 'Emerging signals (↑)', value: stats.emerging, color: 'info', sub: 'Increasing trend' }),
       h(StatCard, { label: 'Suppressed (N<5)', value: stats.suppressed, color: 'warning', sub: 'Below disclosure threshold' })
     ),
 
     h('div', { className: 'chart-container', style: { marginBottom: 20 } },
-      h('div', { className: 'chart-title' }, 'Aggregated Theme Signal Trends by Month — No HCP data'),
+      h('div', { className: 'chart-title' }, 'Aggregated theme signal trends by month — no HCP data'),
       h('div', { ref: chartRef, id: 'commercial-chart' })
     ),
 
     h('div', { className: 'panel' },
       h('div', { className: 'panel-header' },
-        h('span', { className: 'panel-title' }, taFilter ? 'Themes — ' + taFilter : 'All Aggregated Themes'),
+        h('span', { className: 'panel-title' }, taFilter ? 'Themes — ' + taFilter : 'All aggregated themes'),
         taFilter ? h(Tag, { closable: true, onClose: function() { setTaFilter(null); }, color: 'purple' }, taFilter) : null,
         h('div', { style: { marginLeft: 'auto', fontSize: 11, color: '#C20A29', fontWeight: 600 } }, '🔒 No HCP identifiers — aggregated only')
       ),
@@ -1263,12 +1271,12 @@ function CommercialViewPage(props) {
         expandable: {
           expandedRowRender: function(rec) {
             return h('div', { style: { padding: '12px 24px', background: '#FAFAFA' } },
-              h('div', { style: { fontSize: 12, fontWeight: 600, color: '#8F8FA3', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Aggregated Theme Summary'),
+              h('div', { style: { fontSize: 12, fontWeight: 600, color: '#8F8FA3', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Aggregated theme summary'),
               h('div', { style: { fontSize: 13, lineHeight: 1.7, maxWidth: 700 } }, rec.summary),
               h(Alert, {
                 type: 'warning',
                 showIcon: true,
-                message: 'Commercial Firewall: Source interactions, HCP identifiers, and individual signals are not accessible from this view.',
+                message: 'Commercial firewall: source interactions, HCP identifiers, and individual signals are not accessible from this view.',
                 style: { marginTop: 10 },
               })
             );
@@ -1284,11 +1292,11 @@ function CommercialViewPage(props) {
 // ─────────────────────────────────────────────────────────────────────
 
 var NAV_ITEMS = [
-  { key: 'capture',    label: 'Post-Call Capture',   icon: '📝' },
-  { key: 'dashboard',  label: 'MSL Lead Dashboard',  icon: '📊' },
-  { key: 'precall',    label: 'Pre-Call Brief',       icon: '👤' },
-  { key: 'governance', label: 'Governance Console',   icon: '🔍' },
-  { key: 'commercial', label: 'Commercial View',      icon: '🔒' },
+  { key: 'capture',    label: 'Post-call capture',   icon: '📝' },
+  { key: 'dashboard',  label: 'MSL lead dashboard',  icon: '📊' },
+  { key: 'precall',    label: 'Pre-call brief',       icon: '👤' },
+  { key: 'governance', label: 'Governance console',   icon: '🔍' },
+  { key: 'commercial', label: 'Commercial view',      icon: '🔒' },
 ];
 
 function App() {
@@ -1307,20 +1315,9 @@ function App() {
   return h(ConfigProvider, { theme: dominoTheme },
     h('div', { className: 'app-shell' },
 
-      // Top bar
-      h('div', { className: 'app-topbar' },
-        h('span', { className: 'topbar-brand' }, 'MSL', h('span', null, 'Field'), 'Insights'),
-        h('div', { className: 'topbar-spacer' }),
-        h('div', { className: 'dummy-data-toggle' },
-          h('span', null, 'Dummy Data'),
-          h(Switch, { checked: useDummy, onChange: setUseDummy, size: 'small' })
-        ),
-        h('span', { className: 'topbar-user' }, '⬢ Domino')
-      ),
-
-      // Sidebar
+      // Sidebar — no custom topbar (Domino provides one)
       h('div', { className: 'app-sidebar' },
-        h('div', { className: 'nav-section-label' }, 'MSL Tools'),
+        h('div', { className: 'nav-section-label' }, 'MSL tools'),
         NAV_ITEMS.slice(0, 3).map(function(item) {
           return h('div', {
             key: item.key,
@@ -1343,9 +1340,15 @@ function App() {
             item.label
           );
         }),
-        h('div', { className: 'nav-firewall-badge' },
-          h('div', { style: { fontWeight: 700, marginBottom: 2 } }, '🔒 Firewall Active'),
-          'Commercial view is PhRMA Code compliant. N≥5 threshold enforced.'
+        h('div', { className: 'sidebar-footer' },
+          h('div', { className: 'dummy-data-toggle' },
+            h('span', null, 'Demo data'),
+            h(Switch, { checked: useDummy, onChange: setUseDummy, size: 'small' })
+          ),
+          h('div', { className: 'nav-firewall-badge' },
+            h('div', { style: { fontWeight: 700, marginBottom: 2 } }, '🔒 Firewall active'),
+            'Commercial view is PhRMA Code compliant. N≥5 threshold enforced.'
+          )
         )
       ),
 
