@@ -115,8 +115,45 @@ function StatusBadge(props) {
   return h(Tag, { color: color }, status);
 }
 
+var VERSION_TAG_HINTS = {
+  model: 'Pinned in the Domino Model Registry. Re-runs resolve to the same weights.',
+  prompt: 'Versioned prompt template stored in Domino. Pinned for reproducibility.',
+  taxonomy: 'Versioned taxonomy dataset in Domino. Pinned snapshot ID.',
+  snapshot: 'Domino Dataset snapshot ID. Retrieval context frozen at run time.',
+};
+
+function versionKind(v) {
+  if (!v) return 'snapshot';
+  var s = String(v).toLowerCase();
+  if (s.indexOf('claude') === 0 || s.indexOf('gpt') === 0 || s.indexOf('llama') === 0) return 'model';
+  if (/^v\d+$/.test(s)) return 'prompt';
+  if (/^v\d+(\.\d+)+$/.test(s)) return 'taxonomy';
+  return 'snapshot';
+}
+
 function VersionTag(props) {
-  return h('span', { className: 'version-tag' }, props.v);
+  var kind = props.kind || versionKind(props.v);
+  var tip = VERSION_TAG_HINTS[kind] || 'Pinned Domino artifact version.';
+  return h(Tooltip, { title: tip },
+    h('span', { className: 'version-tag' }, props.v)
+  );
+}
+
+function getDominoBundleUrl(bundleId) {
+  if (!bundleId) return null;
+  var host = '';
+  try { host = window.location.origin; } catch(e) {}
+  return host + '/governance/bundles/' + bundleId;
+}
+
+function OpenInDominoButton(props) {
+  var url = getDominoBundleUrl(props.bundleId);
+  if (!url) return null;
+  return h(Button, {
+    size: props.size || 'small',
+    type: props.type || 'default',
+    onClick: function(e) { if (e && e.stopPropagation) e.stopPropagation(); window.open(url, '_blank'); },
+  }, props.label || 'Open bundle in Domino');
 }
 
 // ── StatCard ───────────────────────────────────────────────────────────
@@ -971,6 +1008,7 @@ function GovernancePage(props) {
     { title: 'Routed to', dataIndex: 'routedTo', key: 'rt', width: 180, ellipsis: { showTitle: true }, render: function(d) { return d ? h('span', { className: 'routing-badge routing-badge-inline ' + routingColor(d) }, d) : '-'; } },
     { title: 'Decision', dataIndex: 'decisionLinked', key: 'dec', width: 100, render: function(v) { return v ? h(Tag, { color: 'green' }, 'Linked') : h(Tag, { color: 'default' }, 'Pending'); } },
     { title: 'Lineage', key: 'lineage', width: 90, render: function(_, rec) { return h(Button, { size: 'small', onClick: function() { loadLineage(rec.id); } }, 'View'); } },
+    { title: 'Bundle', key: 'bundle', width: 170, render: function(_, rec) { return h(OpenInDominoButton, { bundleId: rec.id, label: 'Open in Domino' }); } },
   ];
 
   var tabItems = [
@@ -1033,7 +1071,7 @@ function GovernancePage(props) {
               placeholder: 'Select insight',
               value: lineageId,
               onChange: loadLineage,
-              options: insights.map(function(i) { return { value: i.id, label: i.id + ' — ' + i.theme }; }),
+              options: insights.map(function(i) { return { value: i.id, label: i.id + ': ' + i.theme }; }),
             })
           )
         ),
@@ -1046,7 +1084,10 @@ function GovernancePage(props) {
         ) : null,
 
         lineage ? h('div', null,
-          h('div', { className: 'lineage-body-header' }, lineage.theme),
+          h('div', { className: 'lineage-body-header' },
+            h('span', null, lineage.theme),
+            h(OpenInDominoButton, { bundleId: lineage.insightId || lineageId, label: 'Open bundle in Domino' })
+          ),
           h('div', { className: 'lineage-body-meta' },
             'Model: ', h(VersionTag, { v: lineage.modelVersion }), ' · Prompt: ', h(VersionTag, { v: lineage.promptVersion }),
             ' · Taxonomy: ', h(VersionTag, { v: lineage.taxonomyVersion }), ' · Snapshot: ', h(VersionTag, { v: lineage.retrievalSnapshotId })
@@ -1324,20 +1365,34 @@ function AboutModal(props) {
       ),
       h('h4', null, 'The five views'),
       h('ul', { className: 'about-list' },
-        h('li', null, h('strong', null, 'Post-call capture '), '— MSLs submit a note, get a themed summary, follow-up draft, and routing recommendation in under 60 seconds.'),
-        h('li', null, h('strong', null, 'MSL lead dashboard '), '— team insight flow, theme emergence, routing status, decision-loop metrics.'),
-        h('li', null, h('strong', null, 'Pre-call brief '), '— full cross-TA HCP history, recent signals, publications, trial involvement.'),
-        h('li', null, h('strong', null, 'Governance console '), '— insight re-runs, lineage browser, audit log, taxonomy management.'),
-        h('li', null, h('strong', null, 'Commercial view '), '— aggregated thematic trends only (N>=5), PhRMA-Code firewalled, no HCP identifiers.')
+        h('li', null, h('strong', null, 'Post-call capture: '), 'MSLs submit a note, get a themed summary, follow-up draft, and routing recommendation in under 60 seconds.'),
+        h('li', null, h('strong', null, 'MSL lead dashboard: '), 'team insight flow, theme emergence, routing status, decision-loop metrics.'),
+        h('li', null, h('strong', null, 'Pre-call brief: '), 'full cross-TA HCP history, recent signals, publications, trial involvement.'),
+        h('li', null, h('strong', null, 'Governance console: '), 'insight re-runs, lineage browser, audit log, taxonomy management.'),
+        h('li', null, h('strong', null, 'Commercial view: '), 'aggregated thematic trends only (N>=5), PhRMA-Code firewalled, no HCP identifiers.')
+      ),
+      h('h4', null, 'Built on Domino'),
+      h('p', null, 'Every capability below maps to a concrete Domino platform primitive. The app is not a standalone LLM wrapper; it is an orchestration layer over governed Domino artifacts.'),
+      h('ul', { className: 'about-list' },
+        h('li', null, h('strong', null, 'Model API + Model Registry: '), 'the Analyze-note endpoint is a registered Domino Model API. Each call pins a specific model version from the Registry, so re-runs years later resolve to the same weights.'),
+        h('li', null, h('strong', null, 'AI Gateway: '), 'all LLM traffic (theming, summarization, follow-up drafting) routes through the Domino AI Gateway. Keys, provider selection, rate limits, and cost attribution are managed centrally, not in app code.'),
+        h('li', null, h('strong', null, 'Dataset snapshots: '), 'the MARS corpus, HCP profile tables, and taxonomy files live as Domino Datasets. Each retrieval pins a snapshot ID so theming is reproducible even after the corpus changes.'),
+        h('li', null, h('strong', null, 'Scheduled Jobs: '), 'weekly theme-emergence aggregation and cross-MSL signal detection run as Domino Jobs on pinned compute environments. Job run IDs are recorded in lineage.'),
+        h('li', null, h('strong', null, 'Governance Bundles: '), 'each routed insight becomes a Governance Bundle with pinned evidence (note, transcript, model version, prompt, taxonomy, snapshot). Open-in-Domino buttons deep-link into the bundle UI.'),
+        h('li', null, h('strong', null, 'Lineage graph: '), 'compute environment to code commit to dataset snapshot to model version to job run to bundle to policy approval is stitched automatically by Domino; the Governance console surfaces that chain.'),
+        h('li', null, h('strong', null, 'Audit log: '), 'platform-level audit events (who ran what, when, against which artifacts) are captured by Domino with WORM retention suitable for 21 CFR Part 11 and GxP scrutiny.'),
+        h('li', null, h('strong', null, 'Data source connections: '), 'HCP profile database, publication feed, and trial registry are Domino Data Source connections. Credentials never live in the app.'),
+        h('li', null, h('strong', null, 'Compute environments: '), 'the Docker environment used for re-runs is pinned. A Q3 2025 re-run in 2029 resolves to the same image hash, the same dependency versions, the same model.'),
+        h('li', null, h('strong', null, 'Governance policies: '), 'the N>=5 aggregation threshold and Medical/Commercial RBAC are enforced as Domino governance policies, not as ad hoc app-layer checks.')
       ),
       h('h4', null, 'Glossary'),
       h('ul', { className: 'about-list' },
-        h('li', null, h('strong', null, 'MSL '), '— Medical Science Liaison'),
-        h('li', null, h('strong', null, 'HCP '), '— Healthcare Provider'),
-        h('li', null, h('strong', null, 'TA '), '— Therapeutic Area (e.g. Oncology, Hematology, Rare Disease)'),
-        h('li', null, h('strong', null, 'AE '), '— Adverse Event (reportable to Pharmacovigilance under 21 CFR 314.80)'),
-        h('li', null, h('strong', null, 'PV '), '— Pharmacovigilance'),
-        h('li', null, h('strong', null, 'PhRMA Code '), '— industry self-regulatory standard separating Medical from Commercial functions')
+        h('li', null, h('strong', null, 'MSL: '), 'Medical Science Liaison'),
+        h('li', null, h('strong', null, 'HCP: '), 'Healthcare Provider'),
+        h('li', null, h('strong', null, 'TA: '), 'Therapeutic Area (e.g. Oncology, Hematology, Rare Disease)'),
+        h('li', null, h('strong', null, 'AE: '), 'Adverse Event (reportable to Pharmacovigilance under 21 CFR 314.80)'),
+        h('li', null, h('strong', null, 'PV: '), 'Pharmacovigilance'),
+        h('li', null, h('strong', null, 'PhRMA Code: '), 'industry self-regulatory standard separating Medical from Commercial functions')
       )
     )
   );

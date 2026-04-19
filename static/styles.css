@@ -125,13 +125,14 @@ body {
 }
 
 .app-title {
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 700;
   color: #2E2E38;
+  line-height: 1.2;
 }
 
 .app-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: #65657B;
 }
 
@@ -141,10 +142,10 @@ body {
 }
 
 .page-title {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   color: #2E2E38;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   line-height: 1.2;
 }
 
@@ -626,6 +627,10 @@ body {
   font-size: 14px;
   margin-bottom: 4px;
   color: #2E2E38;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .lineage-body-meta {
