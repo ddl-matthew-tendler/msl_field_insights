@@ -58,10 +58,10 @@ HCP_BRIEFS = {
         "recentSignals": ["Pediatric off-label 2–5y age group", "ERT switching intent", "Caregiver burden as outcome measure", "AE: ALT/AST elevation (flagged to PV)"],
         "interactions": [
             {"date": "2026-04-12", "msl": "Dr. Anya Petrov", "ta": "Rare Disease", "product": "RDX-115", "themes": ["Pediatric off-label 2–5y", "ERT switching intent"]},
-            {"date": "2026-04-10", "msl": "Dr. Samuel Wright", "ta": "Rare Disease", "product": "RDX-115", "themes": ["⚠️ AE Flag: ALT/AST elevation", "Enzyme activity monitoring"]},
+            {"date": "2026-04-10", "msl": "Dr. Samuel Wright", "ta": "Rare Disease", "product": "RDX-115", "themes": ["AE Flag: ALT/AST elevation", "Enzyme activity monitoring"]},
             {"date": "2026-04-05", "msl": "Dr. Anya Petrov", "ta": "Rare Disease", "product": "RDX-115", "themes": ["Pediatric off-label 2–5y", "Caregiver burden outcome"]},
             {"date": "2026-03-20", "msl": "Dr. Anya Petrov", "ta": "Rare Disease", "product": "RDX-115", "themes": ["Pediatric off-label 2–5y", "Natural history data gap"]},
-            {"date": "2026-03-12", "msl": "Dr. Samuel Wright", "ta": "Rare Disease", "product": "RDX-115", "themes": ["⚠️ AE Flag: Infusion reaction", "Enzyme activity monitoring"]},
+            {"date": "2026-03-12", "msl": "Dr. Samuel Wright", "ta": "Rare Disease", "product": "RDX-115", "themes": ["AE Flag: Infusion reaction", "Enzyme activity monitoring"]},
         ],
         "publications": [
             {"title": "Long-term outcomes in pediatric enzyme replacement therapy", "journal": "NEJM", "year": 2024},
@@ -79,7 +79,7 @@ MOCK_INTERACTIONS = [
     {"id": "int-003", "mslId": "msl-3", "mslName": "Dr. Rachel Lim",    "hcpId": "hcp-1", "hcpName": "Dr. Sarah Chen",       "hcpTier": 1, "ta": "Hematology",   "product": "VEL-208", "date": "2026-04-14", "routingStatus": "Routed",  "routingDestination": "Medical Strategy",    "aeFlag": False, "insightId": "ins-003", "themes": ["Cross-TA: pediatric off-label", "Off-label Hematology"]},
     {"id": "int-004", "mslId": "msl-4", "mslName": "Dr. Carlos Vega",   "hcpId": "hcp-3", "hcpName": "Dr. Elena Rossi",       "hcpTier": 1, "ta": "Hematology",   "product": "VEL-208", "date": "2026-04-15", "routingStatus": "Routed",  "routingDestination": "Medical Strategy",    "aeFlag": False, "insightId": "ins-004", "themes": ["MRD endpoint adoption", "CAR-T sequencing"]},
     {"id": "int-005", "mslId": "msl-5", "mslName": "Dr. Anya Petrov",   "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-04-12", "routingStatus": "Routed",  "routingDestination": "Clinical Development", "aeFlag": False, "insightId": "ins-005", "themes": ["Pediatric off-label 2–5y", "ERT switching intent"]},
-    {"id": "int-006", "mslId": "msl-6", "mslName": "Dr. Samuel Wright", "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-04-10", "routingStatus": "Pending", "routingDestination": None,                   "aeFlag": True,  "insightId": None,      "themes": ["⚠️ AE: hepatic elevation", "Enzyme monitoring"]},
+    {"id": "int-006", "mslId": "msl-6", "mslName": "Dr. Samuel Wright", "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-04-10", "routingStatus": "Pending", "routingDestination": None,                   "aeFlag": True,  "insightId": None,      "themes": ["AE: hepatic elevation", "Enzyme monitoring"]},
     {"id": "int-007", "mslId": "msl-1", "mslName": "Dr. Priya Mehta",   "hcpId": "hcp-7", "hcpName": "Dr. Claudia Müller",   "hcpTier": 2, "ta": "Oncology",     "product": "ZAR-041", "date": "2026-04-11", "routingStatus": "Routed",  "routingDestination": "Medical Information",  "aeFlag": False, "insightId": "ins-006", "themes": ["MSI-H testing gap", "dMMR-MSI discordance"]},
     {"id": "int-008", "mslId": "msl-2", "mslName": "Dr. James Okafor",  "hcpId": "hcp-2", "hcpName": "Dr. Marcus Williams",  "hcpTier": 1, "ta": "Oncology",     "product": "ZAR-041", "date": "2026-04-09", "routingStatus": "Routed",  "routingDestination": "Medical Strategy",    "aeFlag": False, "insightId": "ins-007", "themes": ["BTK resistance", "Class sequencing"]},
     {"id": "int-009", "mslId": "msl-3", "mslName": "Dr. Rachel Lim",    "hcpId": "hcp-6", "hcpName": "Dr. Robert Kim",       "hcpTier": 2, "ta": "Hematology",   "product": "VEL-208", "date": "2026-04-08", "routingStatus": "Routed",  "routingDestination": "Market Access",       "aeFlag": False, "insightId": "ins-005", "themes": ["Payer access barriers", "Step therapy"]},
@@ -93,32 +93,32 @@ MOCK_INTERACTIONS = [
     {"id": "int-017", "mslId": "msl-5", "mslName": "Dr. Anya Petrov",   "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-03-20", "routingStatus": "Routed",  "routingDestination": "Clinical Development", "aeFlag": False, "insightId": "ins-003", "themes": ["Pediatric off-label 2–5y", "Natural history data gap"]},
     {"id": "int-018", "mslId": "msl-1", "mslName": "Dr. Priya Mehta",   "hcpId": "hcp-7", "hcpName": "Dr. Claudia Müller",   "hcpTier": 2, "ta": "Oncology",     "product": "ZAR-041", "date": "2026-03-18", "routingStatus": "Routed",  "routingDestination": "Medical Strategy",    "aeFlag": False, "insightId": "ins-006", "themes": ["dMMR-MSI discordance", "IO eligibility"]},
     {"id": "int-019", "mslId": "msl-2", "mslName": "Dr. James Okafor",  "hcpId": "hcp-2", "hcpName": "Dr. Marcus Williams",  "hcpTier": 1, "ta": "Oncology",     "product": "ZAR-041", "date": "2026-03-15", "routingStatus": "Routed",  "routingDestination": "Clinical Development", "aeFlag": False, "insightId": "ins-007", "themes": ["Trial feasibility", "ASCO data preview"]},
-    {"id": "int-020", "mslId": "msl-6", "mslName": "Dr. Samuel Wright", "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-03-12", "routingStatus": "Pending", "routingDestination": None,                   "aeFlag": True,  "insightId": None,      "themes": ["⚠️ AE: infusion reaction"]},
+    {"id": "int-020", "mslId": "msl-6", "mslName": "Dr. Samuel Wright", "hcpId": "hcp-5", "hcpName": "Dr. Fatima Al-Amin",   "hcpTier": 1, "ta": "Rare Disease", "product": "RDX-115", "date": "2026-03-12", "routingStatus": "Pending", "routingDestination": None,                   "aeFlag": True,  "insightId": None,      "themes": ["AE: infusion reaction"]},
 ]
 
 MOCK_INSIGHTS = [
-    {"id": "ins-001", "interactionIds": ["int-001", "int-012"], "theme": "HER2+ 3rd Line Unmet Need", "taxonomy": "Efficacy — Unmet Need", "confidence": 0.94, "routedTo": "Clinical Development", "routedDate": "2026-04-17", "decisionLinked": True, "decisionType": "Protocol amendment consideration (STELLAR-4 expansion cohort)", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-17-001"},
-    {"id": "ins-002", "interactionIds": ["int-002", "int-014"], "theme": "NGS Testing Gap — Community Setting", "taxonomy": "Access — Diagnostics", "confidence": 0.89, "routedTo": "Medical Strategy", "routedDate": "2026-04-16", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-16-001"},
-    {"id": "ins-003", "interactionIds": ["int-003", "int-005", "int-011", "int-017"], "theme": "Pediatric Off-Label Use — 2–5y Age Group", "taxonomy": "Safety — Off-Label", "confidence": 0.97, "routedTo": "Clinical Development", "routedDate": "2026-04-14", "decisionLinked": True, "decisionType": "ILLUMINATE-C Pediatric Extension — 2–5y cohort feasibility review initiated", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-14-001"},
-    {"id": "ins-004", "interactionIds": ["int-004", "int-015"], "theme": "MRD Negativity as Primary Endpoint", "taxonomy": "Regulatory — Endpoint Design", "confidence": 0.91, "routedTo": "Medical Strategy", "routedDate": "2026-04-15", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-15-001"},
-    {"id": "ins-005", "interactionIds": ["int-009", "int-016"], "theme": "Payer Step Therapy Barriers — VEL-208", "taxonomy": "Access — Reimbursement", "confidence": 0.96, "routedTo": "Market Access", "routedDate": "2026-04-08", "decisionLinked": True, "decisionType": "HEOR team initiated payer policy analysis for UHC/Cigna", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-08-001"},
-    {"id": "ins-006", "interactionIds": ["int-007", "int-018"], "theme": "dMMR/MSS Discordance — IO Eligibility Uncertainty", "taxonomy": "Efficacy — Biomarker", "confidence": 0.88, "routedTo": "Medical Strategy", "routedDate": "2026-04-11", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-11-001"},
-    {"id": "ins-007", "interactionIds": ["int-008", "int-019"], "theme": "BTK Inhibitor Resistance — Sequencing Signal", "taxonomy": "Efficacy — Resistance Mechanism", "confidence": 0.93, "routedTo": "Clinical Development", "routedDate": "2026-04-09", "decisionLinked": True, "decisionType": "IIT application submitted — SPECTRUM-R resistance mechanism study", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-09-001"},
+    {"id": "ins-001", "interactionIds": ["int-001", "int-012"], "theme": "HER2+ 3rd Line Unmet Need", "taxonomy": "Efficacy. Unmet Need", "confidence": 0.94, "routedTo": "Clinical Development", "routedDate": "2026-04-17", "decisionLinked": True, "decisionType": "Protocol amendment consideration (STELLAR-4 expansion cohort)", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-17-001"},
+    {"id": "ins-002", "interactionIds": ["int-002", "int-014"], "theme": "NGS Testing Gap. Community Setting", "taxonomy": "Access. Diagnostics", "confidence": 0.89, "routedTo": "Medical Strategy", "routedDate": "2026-04-16", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-16-001"},
+    {"id": "ins-003", "interactionIds": ["int-003", "int-005", "int-011", "int-017"], "theme": "Pediatric Off-Label Use. 2–5y Age Group", "taxonomy": "Safety. Off-Label", "confidence": 0.97, "routedTo": "Clinical Development", "routedDate": "2026-04-14", "decisionLinked": True, "decisionType": "ILLUMINATE-C Pediatric Extension. 2–5y cohort feasibility review initiated", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-14-001"},
+    {"id": "ins-004", "interactionIds": ["int-004", "int-015"], "theme": "MRD Negativity as Primary Endpoint", "taxonomy": "Regulatory. Endpoint Design", "confidence": 0.91, "routedTo": "Medical Strategy", "routedDate": "2026-04-15", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-15-001"},
+    {"id": "ins-005", "interactionIds": ["int-009", "int-016"], "theme": "Payer Step Therapy Barriers. VEL-208", "taxonomy": "Access. Reimbursement", "confidence": 0.96, "routedTo": "Market Access", "routedDate": "2026-04-08", "decisionLinked": True, "decisionType": "HEOR team initiated payer policy analysis for UHC/Cigna", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-08-001"},
+    {"id": "ins-006", "interactionIds": ["int-007", "int-018"], "theme": "dMMR/MSS Discordance. IO Eligibility Uncertainty", "taxonomy": "Efficacy. Biomarker", "confidence": 0.88, "routedTo": "Medical Strategy", "routedDate": "2026-04-11", "decisionLinked": False, "decisionType": None, "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-11-001"},
+    {"id": "ins-007", "interactionIds": ["int-008", "int-019"], "theme": "BTK Inhibitor Resistance. Sequencing Signal", "taxonomy": "Efficacy. Resistance Mechanism", "confidence": 0.93, "routedTo": "Clinical Development", "routedDate": "2026-04-09", "decisionLinked": True, "decisionType": "IIT application submitted. SPECTRUM-R resistance mechanism study", "modelVersion": "claude-opus-4-6", "promptVersion": "v9", "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-04-09-001"},
 ]
 
 ROUTING_DESTINATIONS = ["Medical Strategy", "Clinical Development", "Pharmacovigilance", "Market Access", "Medical Information"]
 
 TAXONOMY_VERSIONS = [
-    {"version": "v3.1", "date": "2026-02-01", "status": "Active", "changeNote": "Added Safety — Off-Label subcategory; refined Access — Reimbursement taxonomy nodes."},
-    {"version": "v3.0", "date": "2025-10-15", "status": "Archived", "changeNote": "Major restructure: split Efficacy into Efficacy — Primary and Efficacy — Biomarker."},
-    {"version": "v2.4", "date": "2025-07-01", "status": "Archived", "changeNote": "Added Regulatory — Endpoint Design; minor label clarifications."},
-    {"version": "v2.3", "date": "2025-04-10", "status": "Archived", "changeNote": "Quarterly update — added 4 new leaf nodes per TA Medical Lead feedback."},
+    {"version": "v3.1", "date": "2026-02-01", "status": "Active", "changeNote": "Added Safety. Off-Label subcategory; refined Access. Reimbursement taxonomy nodes."},
+    {"version": "v3.0", "date": "2025-10-15", "status": "Archived", "changeNote": "Major restructure: split Efficacy into Efficacy. Primary and Efficacy. Biomarker."},
+    {"version": "v2.4", "date": "2025-07-01", "status": "Archived", "changeNote": "Added Regulatory. Endpoint Design; minor label clarifications."},
+    {"version": "v2.3", "date": "2025-04-10", "status": "Archived", "changeNote": "Quarterly update. added 4 new leaf nodes per TA Medical Lead feedback."},
     {"version": "v2.2", "date": "2025-01-05", "status": "Archived", "changeNote": "Initial 2025 taxonomy baseline."},
 ]
 
 COMMERCIAL_THEMES = [
     {"id": "ct-1", "theme": "HER2+ 3rd Line Unmet Need", "ta": "Oncology", "signalCount": 14, "trend": "up", "lastUpdated": "2026-04-17", "summary": "Consistent field signal across Northeast and Southeast regions: physicians report a gap in viable options for HER2+ solid tumor patients progressing after 2nd line therapy."},
-    {"id": "ct-2", "theme": "NGS Testing Gap — Community Oncology", "ta": "Oncology", "signalCount": 9, "trend": "up", "lastUpdated": "2026-04-16", "summary": "MSLs report community oncologists receiving pre-treated patients without adequate comprehensive genomic profiling, limiting precision therapy options in 2nd line."},
+    {"id": "ct-2", "theme": "NGS Testing Gap. Community Oncology", "ta": "Oncology", "signalCount": 9, "trend": "up", "lastUpdated": "2026-04-16", "summary": "MSLs report community oncologists receiving pre-treated patients without adequate comprehensive genomic profiling, limiting precision therapy options in 2nd line."},
     {"id": "ct-3", "theme": "Payer Step Therapy Barriers", "ta": "Hematology", "signalCount": 11, "trend": "up", "lastUpdated": "2026-04-09", "summary": "Growing payer burden signal: multiple payers requiring additional prior therapy lines before approving VEL-208 triplet."},
     {"id": "ct-4", "theme": "MRD Negativity as Trial Endpoint", "ta": "Hematology", "signalCount": 7, "trend": "flat", "lastUpdated": "2026-04-15", "summary": "KOL interest in MRD negativity as a primary efficacy endpoint, following recent FDA guidance alignment."},
     {"id": "ct-5", "theme": "BTK Resistance Sequencing Questions", "ta": "Oncology", "signalCount": 6, "trend": "up", "lastUpdated": "2026-04-09", "summary": "Field signal around BTK inhibitor resistance patterns and uncertainty about non-covalent sequencing strategies."},
@@ -214,25 +214,25 @@ async def submit_interaction(payload: dict):
 
     ai_outputs = {
         "default": {
-            "summary": "The HCP expressed interest in mechanism of action data and the current clinical trial landscape. Key themes identified: Unmet Need (Efficacy), Trial Feasibility, and Medical Information Request. No adverse event language detected.\n\nAI Confidence: 87% | Taxonomy: Efficacy — Unmet Need",
+            "summary": "The HCP expressed interest in mechanism of action data and the current clinical trial landscape. Key themes identified: Unmet Need (Efficacy), Trial Feasibility, and Medical Information Request. No adverse event language detected.\n\nAI Confidence: 87% | Taxonomy: Efficacy. Unmet Need",
             "followUpDraft": "Dear Dr. [HCP Name],\n\nThank you for your time today. As discussed, I am sharing approved published data on [product] mechanism of action. Per your question on trial enrollment criteria, I have attached the current protocol synopsis for reference.\n\nPlease let me know if you would like additional information or to connect with a Medical Information specialist.\n\nBest regards,\n[MSL Name], PharmD\nField Medical Affairs",
-            "routing": {"destination": "Medical Strategy", "confidence": 0.82, "rationale": "HCP question touches on competitive positioning and unmet need — routing to Medical Strategy for strategic awareness."},
+            "routing": {"destination": "Medical Strategy", "confidence": 0.82, "rationale": "HCP question touches on competitive positioning and unmet need. routing to Medical Strategy for strategic awareness."},
             "aeFlag": False,
-            "themes": ["Unmet Need — Efficacy", "Trial Feasibility"],
+            "themes": ["Unmet Need. Efficacy", "Trial Feasibility"],
         },
         "adverse": {
-            "summary": "⚠️ POTENTIAL ADVERSE EVENT DETECTED\n\nThe HCP referenced a patient experiencing unexpected laboratory abnormalities or safety findings possibly related to therapy. AE flag raised for PV review and human confirmation before any routing.\n\nAdditional themes identified: Safety — Monitoring, Medical Information Request.\n\nAI Confidence: 99% | Mandatory routing to Pharmacovigilance per 21 CFR 314.80",
+            "summary": "Potential adverse event detected\n\nThe HCP referenced a patient experiencing unexpected laboratory abnormalities or safety findings possibly related to therapy. AE flag raised for PV review and human confirmation before any routing.\n\nAdditional themes identified: Safety. Monitoring, Medical Information Request.\n\nAI Confidence: 99% | Mandatory routing to Pharmacovigilance per 21 CFR 314.80",
             "followUpDraft": "Dear Dr. [HCP Name],\n\nThank you for flagging the findings in your patient. Our Medical Information and Pharmacovigilance team are reaching out directly to gather the required information for our reporting process under 21 CFR 314.80.\n\nA Medical Information specialist will contact you within 24 hours.\n\nBest regards,\n[MSL Name], PharmD\nField Medical Affairs",
             "routing": {"destination": "Pharmacovigilance", "confidence": 0.99, "rationale": "Potential spontaneous adverse event report detected. Mandatory routing to Pharmacovigilance per 21 CFR 314.80 obligation. Human confirmation required before intake record creation."},
             "aeFlag": True,
-            "themes": ["Safety — Adverse Event (Potential)", "Safety — Monitoring"],
+            "themes": ["Safety. Adverse Event (Potential)", "Safety. Monitoring"],
         },
         "pediatric": {
-            "summary": "The HCP raised a reactive, unsolicited question about off-label use of the compound in a pediatric population (ages 2–5). Per PhRMA Code, this is a permissible reactive discussion.\n\nKey themes: Safety — Off-Label (Pediatric), Clinical Development — Data Gap, Trial Feasibility.\n\nIMPORTANT: This is the 4th independent field signal on this topic this quarter — escalation threshold exceeded (threshold: 3). Auto-escalation routing to Clinical Development.\n\nAI Confidence: 97% | Taxonomy: Safety — Off-Label",
+            "summary": "The HCP raised a reactive, unsolicited question about off-label use of the compound in a pediatric population (ages 2–5). Per PhRMA Code, this is a permissible reactive discussion.\n\nKey themes: Safety. Off-Label (Pediatric), Clinical Development. Data Gap, Trial Feasibility.\n\nIMPORTANT: This is the 4th independent field signal on this topic this quarter. escalation threshold exceeded (threshold: 3). Auto-escalation routing to Clinical Development.\n\nAI Confidence: 97% | Taxonomy: Safety. Off-Label",
             "followUpDraft": "Dear Dr. [HCP Name],\n\nThank you for your question today regarding use in the pediatric population (ages 2–5). As discussed, I am sharing available published data on our compound in this setting. Our Medical Affairs team has noted the clinical interest.\n\nI will follow up with the Medical Information team to ensure you receive a complete response to your inquiry.\n\nBest regards,\n[MSL Name], PharmD\nField Medical Affairs",
-            "routing": {"destination": "Clinical Development", "confidence": 0.97, "rationale": "Pediatric off-label signal has crossed the 3-interaction threshold — this is the 4th independent KOL this quarter. Auto-escalation to Clinical Development for pipeline consideration."},
+            "routing": {"destination": "Clinical Development", "confidence": 0.97, "rationale": "Pediatric off-label signal has crossed the 3-interaction threshold. this is the 4th independent KOL this quarter. Auto-escalation to Clinical Development for pipeline consideration."},
             "aeFlag": False,
-            "themes": ["Safety — Off-Label (Pediatric)", "Clinical Development — Data Gap"],
+            "themes": ["Safety. Off-Label (Pediatric)", "Clinical Development. Data Gap"],
         },
     }
 
@@ -310,7 +310,7 @@ def governance_rerun(
             "taxonomyVersion": "v2.4", "retrievalSnapshotId": "snap-2025-09-30-onc",
             "generatedAt": "2025-10-02T14:32:11Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q3 2025 Oncology Roll-Up — REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\nRouting Summary: 14 signals → Medical Strategy, 9 → Clinical Dev, 3 → Market Access, 2 → PV, 5 → Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.",
+            "summary": "Q3 2025 Oncology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. PD-L1 testing variability across community settings (n=18 interactions)\n2. HER2+ 2nd/3rd line unmet need emerging signal (n=11 interactions)\n3. IO combination fatigue and tolerability burden (n=9 interactions)\n\nRouting Summary: 14 signals → Medical Strategy, 9 → Clinical Dev, 3 → Market Access, 2 → PV, 5 → Medical Information\n\nThis synthesis is guaranteed bit-identical to the original Q3 2025 roll-up presented to Medical Strategy on October 4, 2025.",
             "interactionCount": 58,
         },
         "Q4-2025-Hematology": {
@@ -318,7 +318,7 @@ def governance_rerun(
             "taxonomyVersion": "v3.0", "retrievalSnapshotId": "snap-2025-12-31-hem",
             "generatedAt": "2026-01-03T09:22:44Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q4 2025 Hematology Roll-Up — REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. MRD endpoint adoption — growing KOL consensus (n=14 interactions)\n2. Payer access barriers — step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208 — no clear guidance in field (n=8 interactions)\n\nRouting Summary: 11 signals → Medical Strategy, 7 → Clinical Dev, 8 → Market Access, 1 → PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.",
+            "summary": "Q4 2025 Hematology Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. MRD endpoint adoption. growing KOL consensus (n=14 interactions)\n2. Payer access barriers. step therapy expansion to additional payers (n=12 interactions)\n3. CAR-T sequencing relative to VEL-208. no clear guidance in field (n=8 interactions)\n\nRouting Summary: 11 signals → Medical Strategy, 7 → Clinical Dev, 8 → Market Access, 1 → PV\n\nBit-identical reproduction confirmed. Original generated Jan 3, 2026.",
             "interactionCount": 47,
         },
         "Q1-2026-Rare Disease": {
@@ -326,7 +326,7 @@ def governance_rerun(
             "taxonomyVersion": "v3.1", "retrievalSnapshotId": "snap-2026-03-31-rd",
             "generatedAt": "2026-04-02T08:11:33Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": "Q1 2026 Rare Disease Roll-Up — REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. Pediatric off-label 2–5y age group — escalation threshold crossed in week 8 (n=7 interactions)\n2. Caregiver burden as patient-reported outcome — KOL consensus forming (n=5 interactions)\n3. Enzyme replacement dosing frequency preference — monthly vs. biweekly (n=5 interactions)\n\nAE Flags: 2 spontaneous reports routed to PV (ARG-2026-00441, ARG-2026-00382)\n\nRouting Summary: 4 signals → Clinical Dev, 3 → Medical Strategy, 2 → PV confirmed intake\n\nBit-identical reproduction confirmed. Original generated Apr 2, 2026.",
+            "summary": "Q1 2026 Rare Disease Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop 3 Themes:\n1. Pediatric off-label 2–5y age group. escalation threshold crossed in week 8 (n=7 interactions)\n2. Caregiver burden as patient-reported outcome. KOL consensus forming (n=5 interactions)\n3. Enzyme replacement dosing frequency preference. monthly vs. biweekly (n=5 interactions)\n\nAE Flags: 2 spontaneous reports routed to PV (ARG-2026-00441, ARG-2026-00382)\n\nRouting Summary: 4 signals → Clinical Dev, 3 → Medical Strategy, 2 → PV confirmed intake\n\nBit-identical reproduction confirmed. Original generated Apr 2, 2026.",
             "interactionCount": 22,
         },
     }
@@ -339,7 +339,7 @@ def governance_rerun(
             "retrievalSnapshotId": f"snap-{quarter.lower()}-{ta.lower().replace(' ','-')}",
             "generatedAt": "2026-04-01T00:00:00Z", "rerunAt": datetime.now().isoformat() + "Z",
             "matchConfidence": 1.0,
-            "summary": f"{quarter.replace('-', ' ')} {ta} Roll-Up — REPRODUCED BIT-IDENTICALLY\n\nTop themes: Unmet Need, Trial Feasibility, Access barriers.\n\nThis synthesis is guaranteed bit-identical to the original using pinned model claude-opus-4-6, prompt {taxonomy_version}, taxonomy {taxonomy_version}.",
+            "summary": f"{quarter.replace('-', ' ')} {ta} Roll-Up. REPRODUCED BIT-IDENTICALLY\n\nTop themes: Unmet Need, Trial Feasibility, Access barriers.\n\nThis synthesis is guaranteed bit-identical to the original using pinned model claude-opus-4-6, prompt {taxonomy_version}, taxonomy {taxonomy_version}.",
             "interactionCount": random.randint(20, 60),
         }
     return result
@@ -420,5 +420,5 @@ def commercial_themes(ta: str = Query(None)):
     result = [t for t in COMMERCIAL_THEMES if t["signalCount"] >= 5]
     if ta:
         result = [t for t in result if t["ta"] == ta]
-    # Strip any raw note or HCP-identifiable data — aggregated only
+    # Strip any raw note or HCP-identifiable data. aggregated only
     return result

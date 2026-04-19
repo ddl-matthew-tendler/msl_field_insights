@@ -406,7 +406,7 @@ var MOCK_AI_OUTPUTS = {
     themes: ['Unmet Need — Efficacy', 'Trial Feasibility'],
   },
   'adverse': {
-    summary: '⚠️ POTENTIAL ADVERSE EVENT DETECTED. HCP referenced a patient experiencing unexpected laboratory abnormalities possibly related to therapy. AE flag raised for PV review and human confirmation before routing.\n\nAdditional themes: Safety — Monitoring, Medical Information Request.',
+    summary: 'Potential adverse event detected. HCP referenced a patient experiencing unexpected laboratory abnormalities possibly related to therapy. AE flag raised for PV review and human confirmation before routing.\n\nAdditional themes: Safety monitoring, Medical information request.',
     followUpDraft: 'Dear Dr. [HCP Name],\n\nThank you for flagging the laboratory findings in your patient. Our Medical Information team is reaching out to you directly to gather the required information for our pharmacovigilance reporting process under 21 CFR 314.80.\n\nA Medical Information specialist will contact you within 24 hours. Thank you for your diligence.\n\nBest regards,\n[MSL Name], PharmD\nField Medical Affairs',
     routing: { destination: 'Pharmacovigilance', confidence: 0.99, rationale: 'Potential spontaneous adverse event report detected. Mandatory routing to Pharmacovigilance per 21 CFR 314.80 obligation.' },
     aeFlag: true,
